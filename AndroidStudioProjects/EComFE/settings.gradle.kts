@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "EComFE"
+rootProject.name = "My Application"
 include(":app")
  

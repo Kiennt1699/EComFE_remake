@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- landing page -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#F5F5F5</color>
+    <color name="rusty_red">#F4442E</color>
+    <color name="pink">#FF8A80</color>
+
     <!-- Background -->
     <color name="background_color">#eff3f6</color>
     <color name="block_color">#ffffff</color> <!-- Màu này để làm nổi khối các thành phàn, cao hơn background, thấp hơn tất cả -->

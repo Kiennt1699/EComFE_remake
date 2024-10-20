@@ -3,7 +3,6 @@ package com.example.myapplication.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NavigationRoot {
 
     RecyclerView saleView;
     SaleAdapter saleAdapter;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page); // Ensure correct layout name
 
         // Initialize RecyclerView
         saleView = findViewById(R.id.saleView);
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         // Fetch data from the API
         fetchProductData();
     }
-
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();
         ProductApi productApi = retrofit.create(ProductApi.class);

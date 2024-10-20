@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -53,20 +53,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="33dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/FilterBtn"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/settingBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
                     android:background="@drawable/grey_background"
-                    android:padding="12dp"
-                    tools:srcCompat="@drawable/settings" />
+                    android:cropToPadding="true"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/settings" />
 
                 <LinearLayout
                     android:layout_width="235dp"
@@ -76,36 +79,39 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText2"
+                        android:id="@+id/searchTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/grey_background"
-                        android:textSize="16sp"
-                        android:textAlignment="center"
                         android:ems="10"
                         android:hint="Search..."
+
                         android:inputType="text"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/searchBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
-                        tools:srcCompat="@drawable/search_icon" />
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/search_icon"
+                        android:padding="4dp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/CartBtn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="6dp"
                     android:background="@drawable/grey_background"
-                    android:cropToPadding="false"
-                    android:padding="10dp"
-                    tools:srcCompat="@drawable/basket" />
+                    android:cropToPadding="true"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/basket" />
 
             </LinearLayout>
 
@@ -129,16 +135,43 @@
 
                     <ImageView
                         android:id="@+id/equiment_icon"
-                        android:layout_width="37dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
 
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
 
-                        tools:srcCompat="@drawable/computer_icon_downloads_19_removebg_preview" />
+                        android:background="@drawable/computer_icon_downloads_19_removebg_preview" />
 
                     <Spinner
                         android:id="@+id/spinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@null" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/grey_background"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ratingIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+
+                        android:background="@drawable/dollar" />
+
+                    <Spinner
+                        android:id="@+id/ratingChoose"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
@@ -155,17 +188,17 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/equimentIcon"
+                        android:id="@+id/dollarIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
 
-                        tools:srcCompat="@drawable/dollar" />
+                        android:background="@drawable/dollar" />
 
                     <Spinner
-                        android:id="@+id/dollarIcon"
+                        android:id="@+id/dollarChoose"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"

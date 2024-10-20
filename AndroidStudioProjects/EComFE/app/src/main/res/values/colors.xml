@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- landing page -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#F5F5F5</color>
     <color name="rusty_red">#F4442E</color>
     <color name="pink">#FF8A80</color>
     <color name="blue_grey">#2E4058</color>
+
+    <!-- Background -->
+    <color name="background_color">#eff3f6</color>
+    <color name="block_color">#ffffff</color> <!-- Màu này để làm nổi khối các thành phàn, cao hơn background, thấp hơn tất cả -->
+
+    <!-- Button, border -->
+    <color name="primary_color">#ff3131</color>
+    <color name="primary_highlight_color">#FF5E5E</color>
+
+    <!-- Text -->
+    <color name="title_text_color">#000205</color>
+    <color name="regular_text_color">#5a5a5a</color>
+    <color name="noting_text_color">#999999</color>
+
+    <!-- Lable, notification -->
+    <color name="important_color">#ff3131</color>
+    <color name="neutral_color">#ffeb3d</color>
+    <color name="safe_color">#ffeb3d</color>
+
+
 </resources>

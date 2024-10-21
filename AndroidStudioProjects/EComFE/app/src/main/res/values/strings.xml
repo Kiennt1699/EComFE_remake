@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ECom</string>
+
+    <!-- Placeholder -->
+    <string name="title_placeholder">This is a very long Product Name, which should span two entire line!</string>
+    <string name="desc_placeholder">
+        This is a very long Product Desc, uh, dont really know what to write in this tho.\n
+        What do people usually write in a desc?
+        Name? idk
+    </string>
 </resources>

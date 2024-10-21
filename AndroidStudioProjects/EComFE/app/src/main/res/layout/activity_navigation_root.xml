@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include android:id="@+id/userBar" layout="@layout/top_user_bar" />
-    <include android:id="@+id/wishlist" layout="@layout/activity_wishlist_page" android:visibility="invisible"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -13,7 +12,8 @@
         android:layout_marginBottom="66dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-    <include android:id="@+id/productListing" layout="@layout/activity_main_page" android:visibility="visible"/>
+        <include android:id="@+id/wishlist" layout="@layout/activity_wishlist_page" android:visibility="invisible"/>
+        <include android:id="@+id/productListing" layout="@layout/activity_main_page" android:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include android:id="@+id/navBar" layout="@layout/navbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

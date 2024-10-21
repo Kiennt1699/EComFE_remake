@@ -1,6 +1,7 @@
 package API;
 
 import Domain.Products;
+import Domain.WishlistItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

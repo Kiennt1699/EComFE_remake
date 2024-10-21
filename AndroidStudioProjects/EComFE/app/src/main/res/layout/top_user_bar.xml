@@ -9,7 +9,7 @@
         android:layout_height="66dp"
         android:orientation="vertical"
         android:paddingBottom="16dp"
-        android:background="@color/block_color"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     <androidx.constraintlayout.widget.ConstraintLayout

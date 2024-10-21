@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.R;
-
 import java.util.ArrayList;
 
 import Domain.Products;
-
 public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.viewholder> {
     ArrayList<Products> items;
     Context context;
+    OnProductClickListener onProductClickListener; // Add click listener interface
 
-    public SaleAdapter(ArrayList<Products> items){
+    public SaleAdapter(ArrayList<Products> items, OnProductClickListener onProductClickListener) {
         this.items = items;
+        this.onProductClickListener = onProductClickListener;
     }
 
     @NonNull
@@ -39,11 +41,14 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.viewholder> {
 
         // Bind data to the view elements
         holder.titleMenuTxt.setText(product.getProductName());
-        holder.priceTxt.setText("$" + product.getPrice()); // Assuming getPrice() is available in your Products model
-        holder.starTxt.setText(String.valueOf(product.getRating())); // Assuming getRating() is available
+        holder.priceTxt.setText("$" + product.getPrice());
+        holder.starTxt.setText(String.valueOf(product.getRating()));
 
         // Use Glide to load images
-        Glide.with(context).load(product.getImageUrl()).into(holder.pic); // Assuming getImageUrl() provides the image URL
+        Glide.with(context).load(product.getImageUrl()).into(holder.pic);
+
+        // Set click listener to open DetailActivity with selected product's details
+        holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(product));
     }
 
     @Override
@@ -62,5 +67,10 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.viewholder> {
             starTxt = itemView.findViewById(R.id.starTxt);
             pic = itemView.findViewById(R.id.pic);
         }
+    }
+
+    // Interface for click listener
+    public interface OnProductClickListener {
+        void onProductClick(Products product);
     }
 }

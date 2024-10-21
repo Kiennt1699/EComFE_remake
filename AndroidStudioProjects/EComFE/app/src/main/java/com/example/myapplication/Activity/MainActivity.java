@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class MainActivity extends NavigationRoot {
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         // Initialize the adapter with an empty list
-        saleAdapter = new SaleAdapter(productList);
+        saleAdapter = new SaleAdapter(productList, this::onProductClick);
         saleView.setAdapter(saleAdapter); // Attach the adapter immediately
 
         // Fetch data from the API
@@ -50,7 +51,6 @@ public class MainActivity extends NavigationRoot {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Add the fetched products to the product list
                     productList.clear(); // Clear the list first (if needed)
                     productList.addAll(response.body());
 
@@ -66,5 +66,11 @@ public class MainActivity extends NavigationRoot {
                 Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void onProductClick(Products product) {
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        intent.putExtra("product", product); // Pass the selected product
+        startActivity(intent);
     }
 }

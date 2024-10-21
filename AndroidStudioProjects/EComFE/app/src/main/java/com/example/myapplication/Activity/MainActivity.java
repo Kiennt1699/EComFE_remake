@@ -27,6 +27,7 @@ import retrofit2.Retrofit;
 public class MainActivity extends NavigationRoot {
 
     RecyclerView saleView;
+    RecyclerView wishlist;
     SaleAdapter saleAdapter;
     WishlistAdapter wishlistAdapter;
     ArrayList<Products> productList = new ArrayList<>();
@@ -39,13 +40,19 @@ public class MainActivity extends NavigationRoot {
         // Initialize RecyclerView
         saleView = findViewById(R.id.saleView);
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        wishlist = findViewById(R.id.productList);
+        wishlist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
 
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);
+        wishlistAdapter = new WishlistAdapter(wishlistItems);
         saleView.setAdapter(saleAdapter); // Attach the adapter immediately
+        wishlist.setAdapter(wishlistAdapter);
 
         // Fetch data from the API
         fetchProductData();
+        fetchWishlistData();
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();

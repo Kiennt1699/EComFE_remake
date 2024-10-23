@@ -2,8 +2,11 @@ package com.example.myapplication.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +20,12 @@ import Adapter.SaleAdapter;
 import API.ProductApi;
 import API.RetrofitClient;
 import Adapter.WishlistAdapter;
+import API.CategoryApi;
+import Adapter.CategoryAdapter;
+import Adapter.SaleAdapter;
+import API.ProductApi;
+import API.RetrofitClient;
+import Domain.Category;
 import Domain.Products;
 import Domain.WishlistItem;
 import retrofit2.Call;
@@ -33,6 +42,12 @@ public class MainActivity extends NavigationRoot {
     ArrayList<Products> productList = new ArrayList<>();
     ArrayList<WishlistItem> wishlistItems = new ArrayList<>();
 
+    RecyclerView  categoryView;
+
+    CategoryAdapter categoryAdapter;
+
+    ArrayList<Category> categoryList = new ArrayList<>();
+    ProgressBar progressBarCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +65,17 @@ public class MainActivity extends NavigationRoot {
         saleView.setAdapter(saleAdapter); // Attach the adapter immediately
         wishlist.setAdapter(wishlistAdapter);
 
+        // Initialize RecyclerView for Categories
+        categoryView = findViewById(R.id.categoryView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        categoryView.setLayoutManager(gridLayoutManager);
+        categoryAdapter = new CategoryAdapter(categoryList, this::onCategoryClick);
+        categoryView.setAdapter(categoryAdapter);
+        progressBarCategory = findViewById(R.id.progressBarCategory);
         // Fetch data from the API
         fetchProductData();
         fetchWishlistData();
+        fetchCategoryData();
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();
@@ -79,7 +102,31 @@ public class MainActivity extends NavigationRoot {
             }
         });
     }
+    private void fetchCategoryData() {
 
+        Retrofit retrofit = RetrofitClient.getClient();
+        CategoryApi categoryApi = retrofit.create(CategoryApi.class);
+
+        Call<List<Category>> call = categoryApi.getCategories();
+        call.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    categoryList.clear();
+                    categoryList.addAll(response.body());
+                    categoryAdapter.notifyDataSetChanged();
+                    progressBarCategory.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed to load categories", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void onProductClick(Products product) {
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("product", product); // Pass the selected product
@@ -109,6 +156,10 @@ public class MainActivity extends NavigationRoot {
             public void onFailure(Call<List<WishlistItem>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });}
+    private void onCategoryClick(Category category) {
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+        intent.putExtra("category", category); // Pass the clicked category
+        startActivity(intent);
     }
 }

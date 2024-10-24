@@ -39,11 +39,10 @@ public class MainActivity extends NavigationRoot {
     RecyclerView saleView;
     SaleAdapter saleAdapter;
     ArrayList<Products> productList = new ArrayList<>();
+    ProgressBar progressBarProduct;
 
     RecyclerView  categoryView;
-
     CategoryAdapter categoryAdapter;
-
     ArrayList<Category> categoryList = new ArrayList<>();
     ProgressBar progressBarCategory;
 
@@ -61,6 +60,7 @@ public class MainActivity extends NavigationRoot {
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);
         saleView.setAdapter(saleAdapter); // Attach the adapter immediately
+        progressBarProduct = findViewById(R.id.progressBarSale);
 
         // Initialize RecyclerView for Categories
         categoryView = findViewById(R.id.categoryView);
@@ -73,7 +73,7 @@ public class MainActivity extends NavigationRoot {
         fetchProductData();
         fetchCategoryData();
         //Loading bar remove
-        findViewById(R.id.progressBarWishlist).setVisibility(View.INVISIBLE);
+
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();
@@ -86,7 +86,7 @@ public class MainActivity extends NavigationRoot {
                 if (response.isSuccessful() && response.body() != null) {
                     productList.clear(); // Clear the list first (if needed)
                     productList.addAll(response.body());
-
+                    progressBarProduct.setVisibility(View.GONE);
                     // Notify the adapter that the data set has changed
                     saleAdapter.notifyDataSetChanged();
                 } else {

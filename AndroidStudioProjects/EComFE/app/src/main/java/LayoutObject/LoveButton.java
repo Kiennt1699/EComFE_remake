@@ -1,5 +1,6 @@
 package LayoutObject;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,13 +22,14 @@ public class LoveButton {
     private final WishlistApi endpoint;
     private final OnWishlistToggleListener listener;
 
-    public LoveButton(View bindview, AppCompatActivity context, OnWishlistToggleListener listener)
+    public LoveButton(String productId,View bindview, AppCompatActivity context, OnWishlistToggleListener listener)
     {
         button = bindview;
         this.context = context;
         Retrofit retrofit = RetrofitClient.getClient();
         endpoint = retrofit.create(WishlistApi.class);
         this.listener = listener;
+        this.productId = productId;
     }
     public String getProductId() {
         return productId;
@@ -46,7 +48,8 @@ public class LoveButton {
         call.enqueue(new Callback<WishlistItem>() {
             @Override
             public void onResponse(Call<WishlistItem> call, Response<WishlistItem> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                Log.d("LOVE_BUTTON",response.message());
+                if (response.isSuccessful()) {
                     listener.onAdd();
                     Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
                 } else {

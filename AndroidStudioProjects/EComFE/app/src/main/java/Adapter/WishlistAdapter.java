@@ -2,6 +2,7 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +49,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
         holder.titleMenuTxt.setText(product.getProduct().getProductName());
         holder.priceTxt.setText(String.format("$%s", product.getProduct().getPrice())); // Assuming getPrice() is available in your Products model
         holder.descTxt.setText(String.valueOf(product.getProduct().getDescription())); // Assuming getRating() is available
-
+        holder.heart.setSelected(true);
         // Use Glide to load images
         Glide.with(context).load(product.getProduct().getImageUrl()).into(holder.pic);
-        holder.itemView.setOnClickListener(v -> clickListener.onProductClick(viewObject));
+        holder.itemView.setOnClickListener(v -> clickListener.onProductClick(viewObject,position));
         holder.itemView.findViewById(R.id.loveBtn)
-                .setOnClickListener(v -> clickListener.onLovedClick(viewObject));
+                .setOnClickListener(v -> clickListener.onLovedClick(viewObject,position));
         holder.itemView.findViewById(R.id.addToCartBtn)
-                .setOnClickListener(v -> clickListener.onAddToCartClick(viewObject));
+                .setOnClickListener(v -> clickListener.onAddToCartClick(viewObject,position));
 
     }
 
@@ -68,6 +69,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
     public static class ProductCard extends RecyclerView.ViewHolder {
         TextView titleMenuTxt, priceTxt, descTxt;
         ImageView pic;
+        ImageView heart;
 
         public ProductCard(@NonNull View itemView) {
             super(itemView);
@@ -75,12 +77,13 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
             priceTxt = itemView.findViewById(R.id.priceTxt);
             descTxt = itemView.findViewById(R.id.descTxt);
             pic = itemView.findViewById(R.id.pic);
+            heart = itemView.findViewById(R.id.loveBtn);
         }
     }
 
     public interface OnClickListener {
-        void onProductClick(WishlistCard item);
-        void onLovedClick(WishlistCard item);
-        void onAddToCartClick(WishlistCard item);
+        void onProductClick(WishlistCard item, int index);
+        void onLovedClick(WishlistCard item, int index);
+        void onAddToCartClick(WishlistCard item, int index);
     }
 }

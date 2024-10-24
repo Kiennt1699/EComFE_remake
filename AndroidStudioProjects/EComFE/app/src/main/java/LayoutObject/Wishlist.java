@@ -2,6 +2,7 @@ package LayoutObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,28 +40,22 @@ public class Wishlist {
         items = new ArrayList<>();
         WishlistAdapter.OnClickListener listener = new WishlistAdapter.OnClickListener() {
             @Override
-            public void onProductClick(WishlistCard item) {
+            public void onProductClick(WishlistCard item, int index) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("product", item.getItem().getProduct()); // Pass the selected product
                 context.startActivity(intent);
             }
 
             @Override
-            public void onLovedClick(WishlistCard item) {
-                if(item.getItem().getProduct().isWishlisted())
-                {
-                    Toast.makeText(context,item.getItem().getProduct().getProductName(),Toast.LENGTH_SHORT).show();
-                    // item.getLoveButton().removeFromWishlist("USER ID");
-                }
-                else
-                {
-                    Toast.makeText(context,item.getItem().getProduct().getProductName(),Toast.LENGTH_SHORT).show();
-                     // item.getLoveButton().addToWishlist("USER ID");
-                }
+            public void onLovedClick(WishlistCard item, int index) {
+                item.getLoveButton().removeFromWishlist("efa70cbd-daea-48b6-a8d6-aeaf46cb5273");
+                items.remove(index);
+                adapter.notifyItemRemoved(index);
+                adapter.notifyItemRangeChanged(index,items.size());
             }
 
             @Override
-            public void onAddToCartClick(WishlistCard item) {
+            public void onAddToCartClick(WishlistCard item, int index) {
 
             }
         };
@@ -74,7 +69,7 @@ public class Wishlist {
     }
 
     public void fetchWishlistData(){
-        Call<List<WishlistItem>> call = endpoint.getWishlistItems();
+        Call<List<WishlistItem>> call = endpoint.getWishlistItems("efa70cbd-daea-48b6-a8d6-aeaf46cb5273");
         call.enqueue(new Callback<List<WishlistItem>>() {
             @Override
             public void onResponse(Call<List<WishlistItem>> call, Response<List<WishlistItem>> response) {
@@ -107,19 +102,18 @@ public class Wishlist {
     static LoveButton bindButton(WishlistItem item, View bindedView, AppCompatActivity context, WishlistAdapter adapter, int index)
     {
         return new LoveButton(
+                item.getProductId(),
                 bindedView.findViewById(R.id.loveBtn),
                 context,
                 new LoveButton.OnWishlistToggleListener() {
                     @Override
                     public void onAdd() {
-                        item.getProduct().setWishlisted(true);
-                        adapter.notifyItemChanged(index);
+
                     }
 
                     @Override
                     public void onRemove() {
-                        item.getProduct().setWishlisted(false);
-                        adapter.notifyItemChanged(index);
+
                     }
                 });
 

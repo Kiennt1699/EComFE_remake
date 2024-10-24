@@ -21,13 +21,13 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
 
     private Context context;
     private List<Products> productsList;
-    private OnProductClickListener onProductClickListener;
+
 
     // Constructor
-    public DetailAdapter(Context context, List<Products> productsList, OnProductClickListener onProductClickListener) {
+    public DetailAdapter(Context context, List<Products> productsList) {
         this.context = context;
         this.productsList = productsList;
-        this.onProductClickListener = onProductClickListener;
+
     }
 
     @NonNull
@@ -40,7 +40,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Products product = productsList.get(position);
-        holder.bind(product, onProductClickListener);
+        holder.bind(product);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
             ratingBar = itemView.findViewById(R.id.ratingBar); // Initialize RatingBar
         }
 
-        public void bind(Products product, OnProductClickListener listener) {
+        public void bind(Products product) {
             titleTxt.setText(product.getProductName());
             priceTxt.setText(String.format("$%.2f", product.getPrice()));
             detailTxt.setText(product.getDescription()); // Set product description
@@ -75,12 +75,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
 
             Glide.with(itemView.getContext()).load(product.getImageUrl()).into(imageView);
 
-            itemView.setOnClickListener(v -> listener.onProductClick(product));
+
         }
     }
 
-    // Interface for click listener
-    public interface OnProductClickListener {
-        void onProductClick(Products product);
-    }
+
+
 }

@@ -38,7 +38,7 @@ public class Wishlist {
         Retrofit retrofit = RetrofitClient.getClient();
         endpoint = retrofit.create(WishlistApi.class);
         fetchWishlistData();
-        context.findViewById(R.id.progressBarWishlist).setVisibility(RecyclerView.GONE);
+
     }
 
     public void fetchWishlistData(){
@@ -46,6 +46,7 @@ public class Wishlist {
         call.enqueue(new Callback<List<WishlistItem>>() {
             @Override
             public void onResponse(Call<List<WishlistItem>> call, Response<List<WishlistItem>> response) {
+                context.findViewById(R.id.progressBarWishlist).setVisibility(RecyclerView.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     // Add the fetched products to the product list
                     items.clear(); // Clear the list first (if needed)

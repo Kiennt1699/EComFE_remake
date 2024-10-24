@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -44,7 +46,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
 
         // Use Glide to load images
         Glide.with(context).load(product.getProduct().getImageUrl()).into(holder.pic); // Assuming getImageUrl() provides the image URL
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("product", product.getProduct()); // Pass product details
+            context.startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {

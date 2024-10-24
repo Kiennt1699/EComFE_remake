@@ -33,6 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends NavigationRoot {
 
@@ -50,7 +51,7 @@ public class MainActivity extends NavigationRoot {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         // Initialize RecyclerView
         saleView = findViewById(R.id.saleView);
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -72,8 +73,6 @@ public class MainActivity extends NavigationRoot {
         // Fetch data from the API
         fetchProductData();
         fetchCategoryData();
-        //Loading bar remove
-
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();

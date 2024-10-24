@@ -72,8 +72,6 @@ public class MainActivity extends NavigationRoot {
         // Fetch data from the API
         fetchProductData();
         fetchCategoryData();
-        //Loading bar remove
-
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();

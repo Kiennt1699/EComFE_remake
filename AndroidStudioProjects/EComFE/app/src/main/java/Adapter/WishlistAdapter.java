@@ -19,13 +19,17 @@ import java.util.ArrayList;
 
 import Domain.Products;
 import Domain.WishlistItem;
+import Domain.WishlistRequest;
+import LayoutObject.WishlistCard;
 
 public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ProductCard> {
-    ArrayList<WishlistItem> items;
+    ArrayList<WishlistCard> items;
     Context context;
+    OnClickListener clickListener;
 
-    public WishlistAdapter(ArrayList<WishlistItem> items){
+    public WishlistAdapter(ArrayList<WishlistCard> items, OnClickListener clickListener){
         this.items = items;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -38,20 +42,21 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
 
     @Override
     public void onBindViewHolder(@NonNull WishlistAdapter.ProductCard holder, int position) {
-        WishlistItem product = items.get(position);
+        WishlistCard viewObject = items.get(position);
+        WishlistItem product = viewObject.getItem();
         // Bind data to the view elements
         holder.titleMenuTxt.setText(product.getProduct().getProductName());
         holder.priceTxt.setText(String.format("$%s", product.getProduct().getPrice())); // Assuming getPrice() is available in your Products model
         holder.descTxt.setText(String.valueOf(product.getProduct().getDescription())); // Assuming getRating() is available
 
         // Use Glide to load images
-        Glide.with(context).load(product.getProduct().getImageUrl()).into(holder.pic); // Assuming getImageUrl() provides the image URL
+        Glide.with(context).load(product.getProduct().getImageUrl()).into(holder.pic);
+        holder.itemView.setOnClickListener(v -> clickListener.onProductClick(viewObject));
+        holder.itemView.findViewById(R.id.loveBtn)
+                .setOnClickListener(v -> clickListener.onLovedClick(viewObject));
+        holder.itemView.findViewById(R.id.addToCartBtn)
+                .setOnClickListener(v -> clickListener.onAddToCartClick(viewObject));
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("product", product.getProduct()); // Pass product details
-            context.startActivity(intent);
-        });
     }
 
 
@@ -71,5 +76,11 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Produc
             descTxt = itemView.findViewById(R.id.descTxt);
             pic = itemView.findViewById(R.id.pic);
         }
+    }
+
+    public interface OnClickListener {
+        void onProductClick(WishlistCard item);
+        void onLovedClick(WishlistCard item);
+        void onAddToCartClick(WishlistCard item);
     }
 }

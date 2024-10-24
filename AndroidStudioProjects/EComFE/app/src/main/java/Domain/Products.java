@@ -16,6 +16,16 @@ public class Products implements Parcelable {
     private String updatedAt;
     private int rating;
 
+    public boolean isWishlisted() {
+        return isWishlisted;
+    }
+
+    public void setWishlisted(boolean wishlisted) {
+        isWishlisted = wishlisted;
+    }
+
+    private boolean isWishlisted;
+
     // Getters and Setters
     public String getProductId() {
         return productId;

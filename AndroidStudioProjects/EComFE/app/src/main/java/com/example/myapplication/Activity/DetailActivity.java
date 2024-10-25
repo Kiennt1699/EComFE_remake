@@ -1,15 +1,22 @@
 package com.example.myapplication.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.OnBackPressedCallback;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+
+import Adapter.DetailAdapter;
 import Domain.Products;
 
 public class DetailActivity extends AppCompatActivity {
@@ -19,6 +26,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView priceTxt;
     private TextView detailTxt;
     private RatingBar ratingBar;
+    private EditText quantityEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,9 @@ public class DetailActivity extends AppCompatActivity {
         detailTxt = findViewById(R.id.detailTxt);
         ratingBar = findViewById(R.id.ratingBar);
         ImageView backBtn = findViewById(R.id.backBtn);
+        Button addBtn = findViewById(R.id.addBtn);
+        quantityEditText = findViewById(R.id.numTxt);
+
 
         // Fetch product details from the intent
         Products selectedProduct = getIntent().getParcelableExtra("product"); // Use Parcelable
@@ -52,7 +63,17 @@ public class DetailActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
 
         // Set up back button click listener
-        backBtn.setOnClickListener(v -> finish()); // Close the DetailActivity
+        backBtn.setOnClickListener(v -> finish());
+        addBtn.setOnClickListener(v -> {
+            quantityEditText = findViewById(R.id.numTxt);
+            String quantityString = quantityEditText.getText().toString();
+            if (selectedProduct != null) {
+                DetailAdapter detailAdapter = new DetailAdapter(this, null); // Tạo adapter
+                detailAdapter.addToCart(selectedProduct,quantityString); // Gọi hàm addToCart từ adapter
+            } else {
+                Toast.makeText(this, "Product not found", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void displayProductDetails(Products product) {
@@ -66,4 +87,5 @@ public class DetailActivity extends AppCompatActivity {
                 .load(product.getImageUrl())
                 .into(productImage);
     }
+
 }

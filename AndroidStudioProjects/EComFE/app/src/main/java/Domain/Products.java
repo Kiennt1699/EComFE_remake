@@ -16,6 +16,20 @@ public class Products implements Parcelable {
     private String updatedAt;
     private int rating;
 
+    public Products(String productId, String name, String description, double price, int quantityAvailable, String categoryId, String imageUrl, boolean isDeleted, String createdAt, String updatedAt, int rating) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantityAvailable = quantityAvailable;
+        this.categoryId = categoryId;
+        this.imageUrl = imageUrl;
+        this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.rating = rating;
+    }
+
     // Getters and Setters
     public String getProductId() {
         return productId;
@@ -151,4 +165,5 @@ public class Products implements Parcelable {
         dest.writeString(updatedAt);
         dest.writeInt(rating);
     }
+
 }

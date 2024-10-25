@@ -2,40 +2,67 @@ package Adapter;
 
 import android.content.Context;
 import android.widget.Toast;
+import API.AuthApi;
+import API.RetrofitClient;
 import Domain.User;
-import com.google.firebase.auth.FirebaseAuth;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AuthAdapter {
-    private final FirebaseAuth mAuth;
+    private final AuthApi authApi;
 
+    // Constructor
     public AuthAdapter() {
-        this.mAuth = FirebaseAuth.getInstance();
+        authApi = RetrofitClient.getClient().create(AuthApi.class);
     }
 
+    // Đăng nhập
     public void loginUser(User user, Context context, AuthListener listener) {
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                listener.onSuccess();
-            } else {
-                Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show();
-                listener.onFailure(task.getException());
+        Call<User> call = authApi.login(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess();
+                } else {
+                    Toast.makeText(context, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
+                    listener.onFailure(new Exception("Login failed with error code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(context, "An error occurred: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                listener.onFailure(t);
             }
         });
     }
 
+    // Đăng ký
     public void registerUser(User user, Context context, AuthListener listener) {
-        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                listener.onSuccess();
-            } else {
-                Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show();
-                listener.onFailure(task.getException());
+        Call<User> call = authApi.signup(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess();
+                } else {
+                    Toast.makeText(context, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    listener.onFailure(new Exception("Registration failed with error code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(context, "An error occurred: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                listener.onFailure(t);
             }
         });
     }
 
     public interface AuthListener {
         void onSuccess();
-        void onFailure(Exception e);
+        void onFailure(Throwable e);
     }
 }

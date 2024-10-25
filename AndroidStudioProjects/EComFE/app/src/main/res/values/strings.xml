@@ -8,4 +8,5 @@
         What do people usually write in a desc?
         Name? idk
     </string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

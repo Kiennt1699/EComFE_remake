@@ -1,65 +1,63 @@
 package com.example.myapplication.Activity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.text.TextUtils;
+import com.example.myapplication.R;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivitySignupBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.myapplication.Activity.MainActivity;
 
-import Adapter.AuthAdapter;
-import Domain.User;
+public class SignupActivity2 extends AppCompatActivity {
 
-public class SignupActivity2 extends BaseActivity {
-    ActivitySignupBinding binding;
-    private AuthAdapter authAdapter;
+    private EditText emailEdit, passwordEdit, confirmPasswordEdit;
+    private Button signupBtn;
+    private TextView loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySignupBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_signup3);
 
-        authAdapter = new AuthAdapter();
-        setVariable();
+        emailEdit = findViewById(R.id.userEdit);
+        passwordEdit = findViewById(R.id.passEdit);
+        signupBtn = findViewById(R.id.signupBtn);
+        loginText = findViewById(R.id.textView10);
+
+        // Đăng ký khi nhấn nút
+        signupBtn.setOnClickListener(v -> signup());
+
+        // Chuyển sang trang đăng nhập
+        loginText.setOnClickListener(v -> {
+            Intent intent = new Intent(SignupActivity2.this, LoginActivity2.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
-    private void setVariable() {
-        binding.signupBtn.setOnClickListener(view -> {
-            String email = binding.userEdit.getText().toString();
-            String password = binding.passEdit.getText().toString();
+    private void signup() {
+        String email = emailEdit.getText().toString().trim();
+        String password = passwordEdit.getText().toString().trim();
+        String confirmPassword = confirmPasswordEdit.getText().toString().trim();
 
-            if (password.length() < 6) {
-                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            User user = new User(email, password);
-            authAdapter.registerUser(user, this, new AuthAdapter.AuthListener() {
-                @Override
-                public void onSuccess() {
-                    startActivity(new Intent(SignupActivity2.this, MainActivity.class));
-                    finish();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(SignupActivity2.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+        } else {
+            // Logic đăng ký
+            Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
+            // Chuyển hướng vào trang chính (MainActivity) khi đăng ký thành công
+            Intent intent = new Intent(SignupActivity2.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

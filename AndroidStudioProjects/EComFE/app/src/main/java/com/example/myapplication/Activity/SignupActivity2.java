@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+
+import API.AuthApi;
+import API.RetrofitClient;
+import Domain.LoginRequest;
+import Domain.LoginResponse;
+import Domain.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SignupActivity2 extends AppCompatActivity {
 
@@ -62,11 +73,35 @@ public class SignupActivity2 extends AppCompatActivity {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
         } else {
             // Signup logic (send data to your API, for example)
-            Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
-            // Navigate to the login page after successful signup
-            Intent intent = new Intent(SignupActivity2.this, LoginActivity2.class);
-            startActivity(intent);
-            finish();
+            checkSignup(new User(name,email,password, address, phoneNumber));
         }
+    }
+
+    private void checkSignup(User user)
+    {
+        Retrofit retrofit = RetrofitClient.getClient();
+        AuthApi endpoint = retrofit.create(AuthApi.class);
+        Context rootContext = this;
+        Call<User> call = endpoint.signup(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(rootContext, "Signup successful", Toast.LENGTH_SHORT).show();
+                    // Navigate to the login page after successful signup
+                    Intent intent = new Intent(SignupActivity2.this, LoginActivity2.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(rootContext, "Login failed due to server:" + response.message(), Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(rootContext, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

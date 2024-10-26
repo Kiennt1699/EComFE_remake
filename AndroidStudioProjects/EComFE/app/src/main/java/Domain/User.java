@@ -1,6 +1,7 @@
 package Domain;
 
 public class User {
+    private String userId;
     private String name;
     private String email;
     private String password;
@@ -8,6 +9,15 @@ public class User {
     private String phoneNumber;
 
     // Getters and Setters
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
@@ -46,5 +56,22 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public User(String name, String email, String password, String address, String phoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    private static User currentUser;
+    public static User getCurrentUSer(){
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User user){
+        currentUser = user;
     }
 }

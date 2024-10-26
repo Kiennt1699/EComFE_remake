@@ -4,10 +4,14 @@ import android.content.Context;
 import android.widget.Toast;
 import API.AuthApi;
 import API.RetrofitClient;
+import Domain.LoginRequest;
 import Domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+
+// CLASS NÀY LÀM CÁI GÌ ???
 
 public class AuthAdapter {
     private final AuthApi authApi;
@@ -17,10 +21,10 @@ public class AuthAdapter {
         authApi = RetrofitClient.getClient().create(AuthApi.class);
     }
 
-
+    /*
     // Đăng nhập
     public void loginUser(User user, Context context, AuthListener listener) {
-        Call<User> call = authApi.login(user);
+        Call<User> call = authApi.login(new LoginRequest(user.getEmail(), user.getPassword()));
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -39,6 +43,7 @@ public class AuthAdapter {
             }
         });
     }
+    */
 
     // Đăng ký
     public void registerUser(User user, Context context, AuthListener listener) {

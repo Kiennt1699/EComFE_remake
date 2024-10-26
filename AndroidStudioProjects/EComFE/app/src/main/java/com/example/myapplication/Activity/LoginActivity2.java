@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +10,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 import com.example.myapplication.R;
+
+import java.util.List;
+
+import API.AuthApi;
+import API.RetrofitClient;
+import API.WishlistApi;
+import Domain.LoginRequest;
+import Domain.LoginResponse;
+import Domain.User;
+import Domain.WishlistItem;
+import LayoutObject.LoveButton;
+import LayoutObject.WishlistCard;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.HTTP;
+
 public class LoginActivity2 extends AppCompatActivity {
 
     private EditText userEdit, passEdit;
@@ -21,6 +41,7 @@ public class LoginActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_login2);
 
         userEdit = findViewById(R.id.userEdit);
@@ -54,14 +75,37 @@ public class LoginActivity2 extends AppCompatActivity {
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
         } else {
-            // Perform login logic here
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-
-            // Navigate to MainActivity upon successful login
-            Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            checklogin(email,password);
         }
+    }
+
+    private void checklogin(String email, String password)
+    {
+        Retrofit retrofit = RetrofitClient.getClient();
+        AuthApi endpoint = retrofit.create(AuthApi.class);
+        Context rootContext = this;
+        Call<LoginResponse> call = endpoint.login(new LoginRequest(email, password));
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(rootContext, "Login successful", Toast.LENGTH_SHORT).show();
+                    User.setCurrentUser(response.body().getUser());
+                    Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.code() == 401) {
+                    Toast.makeText(rootContext, "Email or password is wrong", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(rootContext, "Login failed due to server", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(rootContext, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

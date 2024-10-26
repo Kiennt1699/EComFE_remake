@@ -23,7 +23,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Navigate to MainActivity after 3 seconds
-                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+                Intent intent = new Intent(IntroActivity.this, LoginActivity2.class);
                 startActivity(intent);
                 finish(); // Close IntroActivity so it's not in the back stack
             }

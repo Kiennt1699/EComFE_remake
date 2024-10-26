@@ -18,9 +18,11 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_width="308dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ecom" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,39 +35,75 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Food"
                     android:layout_marginEnd="8dp"
-                    android:textSize = "45sp"
-                    android:textStyle="bold"
+                    android:text="Register new user"
                     android:textColor="@color/blue_grey"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
 
-                    />
-
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="App"
-                    android:textSize = "45sp"
-                    android:textColor="@color/blue_grey"/>
             </LinearLayout>
 
+            <!-- New fields -->
             <EditText
-                android:id="@+id/userEdit"
+                android:id="@+id/nameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
-                android:hint="Email adrress"
+                android:hint="Name"
                 android:textAlignment="center"
                 android:textColorHint="@color/blue_grey"
                 android:textSize="16sp"
                 android:ems="10"
                 android:background="@drawable/edittext_background"
-                android:inputType="text"
-                />
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/addressEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:hint="Address"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_grey"
+                android:textSize="16sp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/phoneNumberEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:hint="Phone Number"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_grey"
+                android:textSize="16sp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/userEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:hint="Email address"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_grey"
+                android:textSize="16sp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="textEmailAddress" />
+
             <EditText
                 android:id="@+id/passEdit"
                 android:layout_width="match_parent"
@@ -79,8 +117,23 @@
                 android:textSize="16sp"
                 android:ems="10"
                 android:background="@drawable/edittext_background"
-                android:inputType="textPassword"
-                />
+                android:inputType="textPassword" />
+
+            <!-- Confirm Password Field -->
+            <EditText
+                android:id="@+id/confirmPasswordEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:hint="Confirm Password"
+                android:textAlignment="center"
+                android:textColorHint="@color/blue_grey"
+                android:textSize="16sp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="textPassword" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signupBtn"
@@ -94,14 +147,31 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView10"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Are you a member? Login"
-                android:textAlignment="center"
-                android:textSize="16sp" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You aren a member?"
+                    android:textColor="@color/blue_grey"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/SignBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="@color/rusty_red"
+                    android:textSize="16sp"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

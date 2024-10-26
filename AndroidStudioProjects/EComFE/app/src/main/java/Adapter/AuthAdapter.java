@@ -17,6 +17,7 @@ public class AuthAdapter {
         authApi = RetrofitClient.getClient().create(AuthApi.class);
     }
 
+
     // Đăng nhập
     public void loginUser(User user, Context context, AuthListener listener) {
         Call<User> call = authApi.login(user);

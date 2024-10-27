@@ -10,7 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+
+import API.RetrofitClient;
+import API.WishlistApi;
 import Domain.Products;
+import Domain.User;
+import LayoutObject.LoveButton;
+import retrofit2.Retrofit;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -53,6 +59,8 @@ public class DetailActivity extends AppCompatActivity {
 
         // Set up back button click listener
         backBtn.setOnClickListener(v -> finish()); // Close the DetailActivity
+        findViewById(R.id.loveBtn).setOnClickListener(v ->
+            LoveButton.addToWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId()));
     }
 
     private void displayProductDetails(Products product) {

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import API.RetrofitClient;
 import API.WishlistApi;
+import Domain.Products;
 import Domain.WishlistItem;
 import Domain.WishlistRequest;
 import retrofit2.Call;
@@ -48,7 +49,6 @@ public class LoveButton {
         call.enqueue(new Callback<WishlistItem>() {
             @Override
             public void onResponse(Call<WishlistItem> call, Response<WishlistItem> response) {
-                Log.d("LOVE_BUTTON",response.message());
                 if (response.isSuccessful()) {
                     listener.onAdd();
                     Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
@@ -77,6 +77,28 @@ public class LoveButton {
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static void addToWishlist(AppCompatActivity context, String userId, String productId)
+    {
+        Retrofit retrofit = RetrofitClient.getClient();
+        WishlistApi endpoint = retrofit.create(WishlistApi.class);
+        WishlistRequest request = new WishlistRequest(userId,productId);
+        Call<WishlistItem> call = endpoint.addToWishList(request);
+        call.enqueue(new Callback<WishlistItem>() {
+            @Override
+            public void onResponse(Call<WishlistItem> call, Response<WishlistItem> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to server", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<WishlistItem> call, Throwable t) {
                 Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

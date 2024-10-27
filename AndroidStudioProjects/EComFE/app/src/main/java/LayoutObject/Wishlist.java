@@ -1,8 +1,6 @@
 package LayoutObject;
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,16 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activity.DetailActivity;
-import com.example.myapplication.Activity.MainActivity;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import API.RetrofitClient;
 import API.WishlistApi;
 import Adapter.WishlistAdapter;
+import Domain.User;
 import Domain.WishlistItem;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +45,7 @@ public class Wishlist {
 
             @Override
             public void onLovedClick(WishlistCard item, int index) {
-                item.getLoveButton().removeFromWishlist("efa70cbd-daea-48b6-a8d6-aeaf46cb5273");
+                item.getLoveButton().removeFromWishlist(User.getCurrentUser().getUserId());
                 items.remove(index);
                 adapter.notifyItemRemoved(index);
                 adapter.notifyItemRangeChanged(index,items.size());
@@ -69,7 +66,7 @@ public class Wishlist {
     }
 
     public void fetchWishlistData(){
-        Call<List<WishlistItem>> call = endpoint.getWishlistItems("efa70cbd-daea-48b6-a8d6-aeaf46cb5273");
+        Call<List<WishlistItem>> call = endpoint.getWishlistItems(User.getCurrentUser().getUserId());
         call.enqueue(new Callback<List<WishlistItem>>() {
             @Override
             public void onResponse(Call<List<WishlistItem>> call, Response<List<WishlistItem>> response) {

@@ -67,7 +67,7 @@ public class User {
     }
 
     private static User currentUser;
-    public static User getCurrentUSer(){
+    public static User getCurrentUser(){
         return currentUser;
     }
 

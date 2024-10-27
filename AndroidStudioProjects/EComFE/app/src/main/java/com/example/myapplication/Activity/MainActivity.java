@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,12 +129,15 @@ public class MainActivity extends NavigationRoot {
     private void onProductClick(Products product) {
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("product", product); // Pass the selected product
-        startActivity(intent);
+        launcher.launch((intent));
     }
+
+    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> recreate());
 
     private void onCategoryClick(Category category) {
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         intent.putExtra("category", category); // Pass the clicked category
-        startActivity(intent);
+        launcher.launch((intent));
     }
 }

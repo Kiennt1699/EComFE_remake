@@ -17,19 +17,14 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import API.WishlistApi;
 import Adapter.SaleAdapter;
 import API.ProductApi;
 import API.RetrofitClient;
-import Adapter.WishlistAdapter;
 import API.CategoryApi;
 import Adapter.CategoryAdapter;
-import Adapter.SaleAdapter;
-import API.ProductApi;
-import API.RetrofitClient;
 import Domain.Category;
 import Domain.Products;
-import Domain.WishlistItem;
+import Domain.User;
 import LayoutObject.Wishlist;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +67,7 @@ public class MainActivity extends NavigationRoot {
         categoryAdapter = new CategoryAdapter(categoryList, this::onCategoryClick);
         categoryView.setAdapter(categoryAdapter);
         progressBarCategory = findViewById(R.id.progressBarCategory);
+        findViewById(R.id.viewAllTxt).setOnClickListener(v -> onViewAllClick());
         // Fetch data from the API
         fetchProductData();
         fetchCategoryData();
@@ -80,7 +76,7 @@ public class MainActivity extends NavigationRoot {
         Retrofit retrofit = RetrofitClient.getClient();
         ProductApi productApi = retrofit.create(ProductApi.class);
 
-        Call<List<Products>> call = productApi.getProducts();
+        Call<List<Products>> call = productApi.getProducts(User.getCurrentUser().getUserId());
         call.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
@@ -140,4 +136,11 @@ public class MainActivity extends NavigationRoot {
         intent.putExtra("category", category); // Pass the clicked category
         launcher.launch((intent));
     }
+
+    private void onViewAllClick()
+    {
+        Intent intent = new Intent(MainActivity.this, ProductListingActivity.class);
+        launcher.launch((intent));
+    }
+
 }

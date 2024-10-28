@@ -1,6 +1,7 @@
 package com.example.myapplication.Activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,11 +39,13 @@ public class DetailActivity extends AppCompatActivity {
         detailTxt = findViewById(R.id.detailTxt);
         ratingBar = findViewById(R.id.ratingBar);
         ImageView backBtn = findViewById(R.id.backBtn);
+        ImageView loveBtn = findViewById(R.id.loveBtn);
 
         // Fetch product details from the intent
         Products selectedProduct = getIntent().getParcelableExtra("product"); // Use Parcelable
         if (selectedProduct != null) {
             displayProductDetails(selectedProduct);
+            loveBtn.setActivated(selectedProduct.isWishlisted());
         } else {
             // Handle the case where product is not found (optional)
         }
@@ -59,8 +62,15 @@ public class DetailActivity extends AppCompatActivity {
 
         // Set up back button click listener
         backBtn.setOnClickListener(v -> finish()); // Close the DetailActivity
-        findViewById(R.id.loveBtn).setOnClickListener(v ->
-            LoveButton.addToWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId()));
+        loveBtn.setOnClickListener(v -> {
+            if (v.isActivated() == false){
+                LoveButton.addToWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId());
+                v.setActivated(true);
+            } else {
+                LoveButton.removeFromWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId());
+                v.setActivated(false);
+            }
+        });
     }
 
     private void displayProductDetails(Products product) {

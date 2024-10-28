@@ -4,11 +4,12 @@ import Domain.Products;
 import Domain.WishlistItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 import java.util.List;
 
 public interface ProductApi {
 
     @GET("api/products") // Assuming your C# API endpoint is /api/products
-    Call<List<Products>> getProducts();  // This will return a list of Product objects
+    Call<List<Products>> getProducts(@Query("userId")String userId);  // This will return a list of Product objects
 }

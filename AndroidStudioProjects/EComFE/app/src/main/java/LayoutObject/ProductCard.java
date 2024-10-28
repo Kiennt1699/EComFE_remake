@@ -1,12 +1,12 @@
 package LayoutObject;
 
-import Domain.WishlistItem;
+import Domain.Products;
 
-public class WishlistCard {
-    private WishlistItem item;
+public class ProductCard {
+    private Products item;
     private LoveButton loveButton;
 
-    public WishlistCard(WishlistItem item, LoveButton loveButton) {
+    public ProductCard(Products item, LoveButton loveButton) {
         this.item = item;
         this.loveButton = loveButton;
     }
@@ -19,11 +19,11 @@ public class WishlistCard {
         this.loveButton = loveButton;
     }
 
-    public WishlistItem getItem() {
+    public Products getItem() {
         return item;
     }
 
-    public void setItem(WishlistItem item) {
+    public void setItem(Products item) {
         this.item = item;
     }
 }

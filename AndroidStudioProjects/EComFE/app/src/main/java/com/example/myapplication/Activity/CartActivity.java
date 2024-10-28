@@ -2,6 +2,7 @@ package com.example.myapplication.Activity;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.widget.Button;
 
 import android.widget.TextView;
@@ -103,6 +104,8 @@ public class CartActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<CartItem>>() {
             @Override
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
+                Log.d("gjjgnh", "onResponse: " +  response.code());
+
                 if (response.isSuccessful() && response.body() != null) {
                     // Thêm các item đã lấy được vào danh sách giỏ hàng
 //                    cartItemList.clear(); // Xóa danh sách cũ nếu cần

@@ -1,12 +1,19 @@
 package com.example.myapplication.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+
+import Domain.User;
 
 public class NavigationRoot extends AppCompatActivity {
 
@@ -39,5 +46,32 @@ public class NavigationRoot extends AppCompatActivity {
                 navWishlist.setSelected(true);
             }
         });
+
+        findViewById(R.id.logoutBtn).setOnClickListener(v -> logoutClick());
+        TextView username = findViewById(R.id.username);
+        username.setText(User.getCurrentUser().getName());
+    }
+
+    private void logoutClick() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmation")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        User.setCurrentUser(null);
+                        Intent intent = new Intent(NavigationRoot.this, LoginActivity2.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle the 'No' action or just dismiss
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }

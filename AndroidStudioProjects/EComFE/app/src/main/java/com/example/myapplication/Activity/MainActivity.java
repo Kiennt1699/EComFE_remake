@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends NavigationRoot {
 
@@ -51,7 +54,7 @@ public class MainActivity extends NavigationRoot {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         // Initialize RecyclerView
         saleView = findViewById(R.id.saleView);
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -73,8 +76,6 @@ public class MainActivity extends NavigationRoot {
         // Fetch data from the API
         fetchProductData();
         fetchCategoryData();
-        //Loading bar remove
-
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();
@@ -129,12 +130,15 @@ public class MainActivity extends NavigationRoot {
     private void onProductClick(Products product) {
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("product", product); // Pass the selected product
-        startActivity(intent);
+        launcher.launch((intent));
     }
+
+    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> recreate());
 
     private void onCategoryClick(Category category) {
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         intent.putExtra("category", category); // Pass the clicked category
-        startActivity(intent);
+        launcher.launch((intent));
     }
 }

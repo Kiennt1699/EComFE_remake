@@ -5,11 +5,14 @@ import com.example.myapplication.R;
 
 import androidx.activity.EdgeToEdge;
 
+import LayoutObject.Wishlist;
+
 public class CategoryActivity extends NavigationRoot {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_wishlist_page);
+        setContentView(R.layout.activity_product_page);
+        findViewById(R.id.backBtn).setOnClickListener(v -> finish());
+        Wishlist list = new Wishlist(findViewById(R.id.productList),this);
     }
 }

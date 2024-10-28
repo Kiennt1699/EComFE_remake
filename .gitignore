@@ -22,3 +22,54 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Gradle files
+.gradle/
+**/build/
+**/out/
+
+# Android Studio files
+.idea/
+**/*.iml
+**/*.iws
+**/*.hprof
+/local.properties
+
+# Keystore files
+*.jks
+*.keystore
+
+# Files for the IntelliJ IDE
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# Signatures, log files, and temporary files
+/captures/
+.externalNativeBuild/
+*.log
+*.log.*
+
+# Generated files (e.g., *.apk)
+*.apk
+*.ap_
+*.dex
+
+# Google Services files
+/google-services.json
+/firebase-debug.log
+
+# Miscellaneous
+.DS_Store
+*.orig
+*.swp
+*~
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+
+# OS-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

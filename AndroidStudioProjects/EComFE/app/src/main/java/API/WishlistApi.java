@@ -14,8 +14,8 @@ import retrofit2.http.Query;
 import java.util.List;
 
 public interface WishlistApi {
-    @GET("api/wishlist")
-    Call<List<WishlistItem>> getWishlistItems(@Query("userId")String userId);
+    @GET("api/wishlist/{userId}")
+    Call<List<WishlistItem>> getWishlistItems(@Path("userId")String userId);
 
     @POST("api/wishlist")
     Call<WishlistItem> addToWishList(@Body WishlistRequest request);

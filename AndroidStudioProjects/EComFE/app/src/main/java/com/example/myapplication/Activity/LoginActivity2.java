@@ -15,22 +15,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.myapplication.R;
 
-import java.util.List;
-
 import API.AuthApi;
 import API.RetrofitClient;
-import API.WishlistApi;
 import Domain.LoginRequest;
 import Domain.LoginResponse;
 import Domain.User;
-import Domain.WishlistItem;
-import LayoutObject.LoveButton;
-import LayoutObject.WishlistCard;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.HTTP;
 
 public class LoginActivity2 extends AppCompatActivity {
 

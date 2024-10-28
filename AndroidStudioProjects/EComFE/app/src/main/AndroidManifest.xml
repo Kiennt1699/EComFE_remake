@@ -43,6 +43,7 @@
         <activity android:name=".Activity.SignupActivity2" android:exported="true" />
         <activity android:name=".Activity.DetailActivity" android:exported="false" />
         <activity android:name=".Activity.CategoryActivity" android:exported="true" />
+        <activity android:name=".Activity.ProductListingActivity" android:exported="true" />
 
     </application>
 

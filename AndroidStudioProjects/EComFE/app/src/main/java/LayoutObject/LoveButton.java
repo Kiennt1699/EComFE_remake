@@ -104,6 +104,29 @@ public class LoveButton {
         });
     }
 
+    public static void removeFromWishlist(AppCompatActivity context, String userId, String productId)
+    {
+        Retrofit retrofit = RetrofitClient.getClient();
+        WishlistApi endpoint = retrofit.create(WishlistApi.class);
+        Call<Void> call = endpoint.removeFromWishList(userId,productId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "Removed from wishlist", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to server", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
     public interface OnWishlistToggleListener
     {
         void onAdd();

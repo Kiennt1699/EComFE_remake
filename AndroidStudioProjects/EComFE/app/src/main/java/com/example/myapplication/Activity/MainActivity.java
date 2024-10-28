@@ -29,6 +29,7 @@ import API.ProductApi;
 import API.RetrofitClient;
 import Domain.Category;
 import Domain.Products;
+import Domain.User;
 import Domain.WishlistItem;
 import LayoutObject.Wishlist;
 import retrofit2.Call;
@@ -80,7 +81,7 @@ public class MainActivity extends NavigationRoot {
         Retrofit retrofit = RetrofitClient.getClient();
         ProductApi productApi = retrofit.create(ProductApi.class);
 
-        Call<List<Products>> call = productApi.getProducts();
+        Call<List<Products>> call = productApi.getProducts(User.getCurrentUser().getUserId());
         call.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {

@@ -128,6 +128,7 @@ public class Products implements Parcelable {
         createdAt = in.readString();
         updatedAt = in.readString();
         rating = in.readInt();
+        isWishlisted = in.readByte() != 0;
     }
 
     public static final Creator<Products> CREATOR = new Creator<Products>() {
@@ -160,5 +161,6 @@ public class Products implements Parcelable {
         dest.writeString(createdAt);
         dest.writeString(updatedAt);
         dest.writeInt(rating);
+        dest.writeByte((byte)(isWishlisted ? 1 : 0));
     }
 }

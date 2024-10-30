@@ -102,54 +102,5 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
 
     }
 
-    public void addToCart(Products product, String quantityString) {
-        int quantity = 0 ; // Giá trị mặc định nếu người dùng không nhập
-
-        // Kiểm tra nếu người dùng đã nhập số lượng
-        if (quantityString.matches("\\d+")) {  // Kiểm tra chuỗi chỉ chứa các ký tự số
-            quantity = Integer.parseInt(quantityString);
-            if (quantity > 0) {
-                Log.d("qqqqqqq", "Value: " + quantity);
-            } else {
-                Log.d("qqqqqqq", "Invalid quantity (must be greater than 0): " + quantity);
-                Toast.makeText(context, "Please enter a valid quantity greater than 0", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        } else {
-            Log.d("qqqqqqq", "Invalid quantity (not a number): " + quantityString);
-            Toast.makeText(context, "Please enter a numeric quantity", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Tạo yêu cầu
-        AddToCartRequest request = new AddToCartRequest(
-                product.getProductId(),
-                quantity, // Số lượng mặc định là 1
-                product.getPrice()
-        );
-        Log.d("AddToCart", request.toString());
-
-        // Gọi API để thêm vào giỏ hàng
-        Retrofit retrofit = RetrofitClient.getClient();
-        CartApi cartApi = retrofit.create(CartApi.class);
-
-        // Gọi phương thức thêm vào giỏ hàng
-        Call<Void> call = cartApi.addToCart(request);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(context, "Added to cart!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Failed to add to cart", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }

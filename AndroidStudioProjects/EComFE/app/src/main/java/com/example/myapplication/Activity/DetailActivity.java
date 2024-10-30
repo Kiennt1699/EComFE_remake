@@ -1,10 +1,15 @@
 package com.example.myapplication.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.OnBackPressedCallback;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import API.RetrofitClient;
 import API.WishlistApi;
+import Adapter.CartAdapter;
+import Domain.CartItem;
 import Domain.Products;
 import Domain.User;
 import LayoutObject.LoveButton;
@@ -40,6 +50,9 @@ public class DetailActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         ImageView backBtn = findViewById(R.id.backBtn);
         ImageView loveBtn = findViewById(R.id.loveBtn);
+        Button addBtn = findViewById(R.id.addBtn);
+        List<CartItem> cartItems = new ArrayList<>();
+        CartAdapter adapter = new CartAdapter(this,cartItems);
 
         // Fetch product details from the intent
         Products selectedProduct = getIntent().getParcelableExtra("product"); // Use Parcelable
@@ -69,6 +82,18 @@ public class DetailActivity extends AppCompatActivity {
             } else {
                 LoveButton.removeFromWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId());
                 v.setActivated(false);
+            }
+        });
+        addBtn.setOnClickListener(v -> {
+            EditText quantityEditText = findViewById(R.id.numTxt);
+            String quantityString = quantityEditText.getText().toString();
+            if (!quantityString.isEmpty()) {
+                // Gọi phương thức addToCart từ CartAdapter
+                Log.d("11111", "onCreate: "+ selectedProduct.toString() );
+                Log.d("22222", "onCreate: "+ quantityString );
+                adapter.addToCart(selectedProduct, quantityString);
+
+            } else {
             }
         });
     }

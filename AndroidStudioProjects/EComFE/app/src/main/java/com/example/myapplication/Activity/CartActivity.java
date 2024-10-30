@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,10 @@ import java.util.List;
 import Adapter.CartAdapter; // Giả sử bạn đã tạo CartAdapter
 import API.CartApi; // Import CartApi
 import API.RetrofitClient; // Import RetrofitClient
+import Domain.AddToCartRequest;
 import Domain.CartItem; // Giả sử bạn đã định nghĩa CartItem
 import Domain.Products;
+import Domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +38,10 @@ public class CartActivity extends AppCompatActivity {
     TextView totalPriceTextView;
     double totalPrice ;
     Button deleteButton;
+    ImageView backBtn;
+    Retrofit retrofit = RetrofitClient.getClient();
+    CartApi cartApi = retrofit.create(CartApi.class);
+    Call<List<CartItem>> call = cartApi.getCartItems(User.getCurrentUser().getUserId());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +52,23 @@ public class CartActivity extends AppCompatActivity {
         cartView = findViewById(R.id.cartRecyclerView); // Đảm bảo ID đúng
         cartView.setLayoutManager(new LinearLayoutManager(this)); // Sử dụng layout manager dọc
         // Initialize the adapter with an empty list
-        cartAdapter = new CartAdapter(cartItemList);
+        cartAdapter = new CartAdapter(this,cartItemList);
         cartView.setAdapter(cartAdapter); // Gán adapter cho RecyclerView
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         // Fetch data from the API
         deleteButton = findViewById(R.id.deleteButton);
+        backBtn = findViewById(R.id.backBtn);
+        // Pass the token to Retrofit
         fetchCartData();
-
         deleteButton.setOnClickListener(v -> deleteSelectedItems());
+        backBtn.setOnClickListener(v -> finish());
 
     }
-    private void deleteCartItem(String cartItemId) {
+    private void deleteCartItem(String productId) {
         Retrofit retrofit = RetrofitClient.getClient();
         CartApi cartApi = retrofit.create(CartApi.class);
 
-        Call<Void> call = cartApi.deleteCartItem(cartItemId);
+        Call<Void> call = cartApi.deleteCartItem(productId,User.getCurrentUser().getUserId());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -96,16 +105,10 @@ public class CartActivity extends AppCompatActivity {
     }
     private void fetchCartData() {
 
-        // Pass the token to Retrofit
-        Retrofit retrofit = RetrofitClient.getClient();
-        CartApi cartApi = retrofit.create(CartApi.class);
 
-        Call<List<CartItem>> call = cartApi.getCartItems();
         call.enqueue(new Callback<List<CartItem>>() {
             @Override
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
-                Log.d("gjjgnh", "onResponse: " +  response.code());
-
                 if (response.isSuccessful() && response.body() != null) {
                     // Thêm các item đã lấy được vào danh sách giỏ hàng
 //                    cartItemList.clear(); // Xóa danh sách cũ nếu cần

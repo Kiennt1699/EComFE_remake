@@ -35,6 +35,9 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".Activity.CartActivity"
+            android:exported="true" />
 
         <!-- Other activities in your app -->
         <activity android:name=".Activity.SignupActivity2" android:exported="true" />

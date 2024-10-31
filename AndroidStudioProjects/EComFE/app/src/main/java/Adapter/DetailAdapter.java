@@ -1,33 +1,50 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import Domain.Products;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import API.CartApi;
+import API.RetrofitClient;
+import Domain.AddToCartRequest;
+import Domain.CartItem;
+import Domain.CartProduct;
+import Domain.Products;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductViewHolder> {
 
     private Context context;
-    private List<Products> productsList;
-
+    private static List<Products> productsList;
 
     // Constructor
     public DetailAdapter(Context context, List<Products> productsList) {
         this.context = context;
         this.productsList = productsList;
-
     }
 
     @NonNull
@@ -41,6 +58,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Products product = productsList.get(position);
         holder.bind(product);
+
     }
 
     @Override
@@ -55,14 +73,18 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
         private ImageView imageView;
         private TextView detailTxt;
         private RatingBar ratingBar; // Add RatingBar
-
+        private Button addBtn;
+        private EditText quantityEditText;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTxt = itemView.findViewById(R.id.titleTxt);
             priceTxt = itemView.findViewById(R.id.priceTxt);
             imageView = itemView.findViewById(R.id.imageView);
             detailTxt = itemView.findViewById(R.id.detailTxt);
-            ratingBar = itemView.findViewById(R.id.ratingBar); // Initialize RatingBar
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            addBtn = itemView.findViewById(R.id.addBtn );
+            quantityEditText = itemView.findViewById(R.id.numTxt); // Khởi tạo EditText
+
         }
 
         public void bind(Products product) {
@@ -75,10 +97,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ProductVie
 
             Glide.with(itemView.getContext()).load(product.getImageUrl()).into(imageView);
 
-
         }
-    }
 
+
+    }
 
 
 }

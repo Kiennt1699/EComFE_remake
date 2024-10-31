@@ -1,5 +1,6 @@
 package API;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,8 +11,8 @@ public class RetrofitClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL) // Set the base URL for API
-                    .addConverterFactory(GsonConverterFactory.create()) // Add Gson converter
+                    .baseUrl(BASE_URL)  // Replace with your actual base URL
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;

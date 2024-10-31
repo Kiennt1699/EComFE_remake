@@ -157,8 +157,9 @@
                     app:layout_constraintStart_toEndOf="@id/QuantityTxt"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/numTxt"
+                    android:inputType="number"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when the button is pressed -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#CC0000"/> <!-- Màu khi nhấn (có thể điều chỉnh) -->
+            <stroke android:width="3dp" android:color="#CC0000"/> <!-- Viền khi nhấn -->
+        </shape>
+    </item>
+    <!-- State when the button is not pressed -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FF0000"/> <!-- Màu bình thường -->
+            <stroke android:width="3dp" android:color="#FF0000"/> <!-- Viền bình thường -->
+        </shape>
+    </item>
+</selector>

@@ -1,8 +1,10 @@
 package com.example.myapplication.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -68,9 +70,14 @@ public class MainActivity extends NavigationRoot {
         categoryView.setAdapter(categoryAdapter);
         progressBarCategory = findViewById(R.id.progressBarCategory);
         findViewById(R.id.viewAllTxt).setOnClickListener(v -> onViewAllClick());
+
+        ImageView cartIcon = findViewById(R.id.CartBtn );
+        cartIcon.setOnClickListener(v -> onCartClick());
         // Fetch data from the API
         fetchProductData();
         fetchCategoryData();
+        //Loading bar remove
+
     }
     private void fetchProductData() {
         Retrofit retrofit = RetrofitClient.getClient();
@@ -141,6 +148,12 @@ public class MainActivity extends NavigationRoot {
     {
         Intent intent = new Intent(MainActivity.this, ProductListingActivity.class);
         launcher.launch((intent));
+    }
+
+    private void onCartClick() {
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        // Add any extra data if needed
+        launcher.launch(intent);
     }
 
 }

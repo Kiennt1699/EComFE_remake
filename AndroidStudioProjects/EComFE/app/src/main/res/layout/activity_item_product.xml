@@ -13,7 +13,7 @@
         android:layout_height="197dp"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingright="10dp"
+        android:paddingRight="10dp"
 
         >
 

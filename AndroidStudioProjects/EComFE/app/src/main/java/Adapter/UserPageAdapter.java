@@ -1,6 +1,8 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.Activity.PurchasedActivity;
 import com.example.myapplication.R;
 
 import java.util.HashMap;
@@ -105,8 +108,25 @@ public class UserPageAdapter extends BaseExpandableListAdapter {
         ItemObject child = (ItemObject) getChild(groupPosition, childPosition);
         holder.childTitleTextView.setText(child.getName());
 
+        convertView.setOnClickListener(v -> {
+            Log.d("UserPageAdapter", "Clicked on: " + child.getName());
+            switch (child.getName()) {
+                case "History Cart":
+                    Intent intent = new Intent(context, PurchasedActivity.class);
+                    context.startActivity(intent);
+                    break;
+
+
+
+                default:
+                    Log.d("UserPageAdapter", "Other item clicked");
+                    break;
+            }
+        });
+
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

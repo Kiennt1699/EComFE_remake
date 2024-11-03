@@ -2,7 +2,6 @@ package com.example.myapplication.Activity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.widget.ExpandableListView;
 
@@ -16,7 +15,7 @@ import Adapter.UserPageAdapter;
 import Domain.GroupObject;
 import Domain.ItemObject;
 
-public class UserSettingsActivity  {
+public class UserSettingsActivity {
 
     ExpandableListView expandableListView;
     UserPageAdapter adapter;
@@ -30,13 +29,12 @@ public class UserSettingsActivity  {
         listGroup = new ArrayList<>();
         listItem = new HashMap<>();
 
-
-
         // Tạo adapter
         adapter = new UserPageAdapter(context, listGroup, listItem);
         expandableListView.setAdapter(adapter);
+
         // Khởi tạo dữ liệu
-        initData(); // Đảm bảo bạn đã gọi initData trước khi tạo adapter
+        initData();
     }
 
     // Hàm initData()
@@ -47,8 +45,7 @@ public class UserSettingsActivity  {
         GroupObject cartGroup = new GroupObject(3, "Your Cart");
         GroupObject userGroup = new GroupObject(4, "User Profile");
         GroupObject historyGroup = new GroupObject(5, "History Cart");
-        GroupObject passwordGroup = new GroupObject(6,"Change Password");
-
+        GroupObject passwordGroup = new GroupObject(6, "Change Password");
 
         listGroup.add(homeGroup);
         listGroup.add(wishGroup);
@@ -63,13 +60,14 @@ public class UserSettingsActivity  {
 
         listItem.put(homeGroup, new ArrayList<>());
         listItem.put(wishGroup, new ArrayList<>());
-        listItem.put(cartGroup, new ArrayList<>()); // Không có
-        listItem.put(userGroup, new ArrayList<>()); // Không có mục cho user profile
-        listItem.put(historyGroup, new ArrayList<>()); // Không có mục cho history cart
+        listItem.put(cartGroup, new ArrayList<>());
+        listItem.put(userGroup, new ArrayList<>());
         listItem.put(passwordGroup, new ArrayList<>());
-        for (GroupObject group : listGroup) {
-            List<ItemObject> items = listItem.get(group);
-        }
+
+        // Khởi tạo mục cho "History Cart"
+        List<ItemObject> historyItems = new ArrayList<>();
+        historyItems.add(new ItemObject(1, "History Cart"));
+        listItem.put(historyGroup, historyItems);
 
         // Thông báo cho adapter về thay đổi dữ liệu
         adapter.notifyDataSetChanged();

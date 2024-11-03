@@ -4,7 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,16 +19,31 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyApoHVozLgZzQywGRbqhd6HfykHnBsKNjA" />
+
+        <activity
+            android:name=".Activity.MapsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".Activity.ItemOrderActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.ItemProductActivity"
-            android:exported="false"
-            android:label="@string/title_activity_item_product"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Activity.item_product_activity"
             android:exported="false"
             android:label="@string/title_activity_item_product"
             android:theme="@style/Theme.MyApplication" />
@@ -61,32 +78,15 @@
             android:exported="true" />
         <activity
             android:name=".Activity.CartActivity"
-            android:exported="true" />
-
-        <!-- Other activities in your app -->
-        <activity android:name=".Activity.SignupActivity2" android:exported="true" />
-        <activity android:name=".Activity.DetailActivity" android:exported="false" />
-        <activity android:name=".Activity.CategoryActivity" android:exported="true" />
-        <activity android:name=".Activity.ProductListingActivity" android:exported="true" />
-        <activity android:name=".Activity.ChatActivity" android:exported="true" />
-
-        <activity
-            android:name=".Activity.DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.CategoryActivity"
             android:exported="true" /> <!-- Other activities in your app -->
-        <activity
-            android:name=".Activity.SignupActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.DetailActivity"
-            android:exported="false" />
         <activity
             android:name=".Activity.CategoryActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.ProductListingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.ChatActivity"
             android:exported="true" />
     </application>
 

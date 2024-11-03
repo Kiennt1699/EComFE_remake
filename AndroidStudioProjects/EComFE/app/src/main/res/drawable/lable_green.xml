@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- res/drawable/custom_textview.xml -->
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <!-- Màu nền xanh dương -->
+
+        <!-- Thiết lập viền -->
+        <stroke
+            android:width="2dp"
+            android:color="#00D700" /> <!-- Viền xanh lá cây -->
+
+        <!-- Góc bo tròn -->
+        <corners android:radius="4dp" />
+    </shape>
+

@@ -17,6 +17,8 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import API.WishlistApi;
+import Adapter.PurchasedProductAdapter;
 import Adapter.SaleAdapter;
 import API.ProductApi;
 import API.RetrofitClient;
@@ -35,7 +37,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 public class MainActivity extends NavigationRoot {
 
     RecyclerView saleView;
+    RecyclerView purchaseProduct;
     SaleAdapter saleAdapter;
+    PurchasedProductAdapter purchasedProductAdapter;
     ArrayList<Products> productList = new ArrayList<>();
     ProgressBar progressBarProduct;
 
@@ -53,11 +57,17 @@ public class MainActivity extends NavigationRoot {
         saleView = findViewById(R.id.saleView);
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        purchaseProduct = findViewById(R.id.purchaseProductView);
+        purchaseProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
         wishlist = new Wishlist(findViewById(R.id.productList),this);
 
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);
         saleView.setAdapter(saleAdapter); // Attach the adapter immediately
+        purchasedProductAdapter = new PurchasedProductAdapter(new ArrayList<>());
+        purchaseProduct.setAdapter(purchasedProductAdapter);
+
         progressBarProduct = findViewById(R.id.progressBarSale);
 
         // Initialize RecyclerView for Categories

@@ -26,6 +26,7 @@ public class NavigationRoot extends AppCompatActivity {
     protected void onClickSetUp(){
         ImageView navMenu = findViewById(R.id.navMenu);
         ImageView navWishlist = findViewById(R.id.navWishlist);
+        ImageView navProfile = findViewById(R.id.navProfile);
         navMenu.setSelected(true);
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +45,14 @@ public class NavigationRoot extends AppCompatActivity {
                 findViewById(R.id.wishlist).setVisibility(View.VISIBLE);
                 navMenu.setSelected(false);
                 navWishlist.setSelected(true);
+            }
+        });
+
+        navProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NavigationRoot.this, PurchasedActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -67,7 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         // Set the product details
         holder.productName.setText(cartItem.getProduct().getName());
         holder.quantity.setText("Quantity: "+ cartItem.getQuantity());
-        holder.price.setText("Price: $" + cartItem.getProduct().getPrice());
+        holder.price.setText("$" + cartItem.getProduct().getPrice());
         holder.desc.setText("" + cartItem.getProduct().getDescription());
         // Load the product image using Glide
         Glide.with(context)

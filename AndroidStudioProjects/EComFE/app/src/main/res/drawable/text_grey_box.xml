@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/gray_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#A0A0A0" /> <!-- Nền màu xám (#808080) -->
+    <corners android:radius="3dp" /> <!-- Bo góc 5dp -->
+</shape>

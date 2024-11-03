@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/white_background_with_gray_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Nền trắng -->
+    <solid android:color="#FFFFFF" />
+
+    <!-- Viền xám -->
+    <stroke
+        android:width="2dp"
+        android:color="#808080" /> <!-- Màu xám -->
+
+    <!-- Bo góc 5dp -->
+    <corners android:radius="3dp" />
+</shape>

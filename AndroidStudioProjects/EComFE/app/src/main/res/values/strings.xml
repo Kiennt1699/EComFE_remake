@@ -9,4 +9,6 @@
         Name? idk
     </string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="BackChar"><![CDATA[<]]></string>
+    <string name="title_activity_item_product">item_product_activity</string>
 </resources>

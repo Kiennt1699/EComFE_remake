@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Nền chính -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Đường viền dưới -->
+    <item android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#545454" /> <!-- Đặt màu đường viền dưới -->
+        </shape>
+    </item>
+</layer-list>

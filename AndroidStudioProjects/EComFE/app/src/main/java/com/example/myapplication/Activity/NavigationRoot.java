@@ -26,6 +26,7 @@ public class NavigationRoot extends AppCompatActivity {
     protected void onClickSetUp(){
         ImageView navMenu = findViewById(R.id.navMenu);
         ImageView navWishlist = findViewById(R.id.navWishlist);
+        ImageView navUser =findViewById(R.id.navProfile);
         navMenu.setSelected(true);
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,8 +34,10 @@ public class NavigationRoot extends AppCompatActivity {
                 // Toggle the selected state
                 findViewById(R.id.productListing).setVisibility(View.VISIBLE);
                 findViewById(R.id.wishlist).setVisibility(View.INVISIBLE);
+                findViewById(R.id.userList).setVisibility(View.INVISIBLE);
                 navMenu.setSelected(true);
                 navWishlist.setSelected(false);
+                navUser.setSelected(false);
             }
         });
         navWishlist.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +45,21 @@ public class NavigationRoot extends AppCompatActivity {
             public void onClick(View view) {
                 findViewById(R.id.productListing).setVisibility(View.INVISIBLE);
                 findViewById(R.id.wishlist).setVisibility(View.VISIBLE);
+                findViewById(R.id.userList).setVisibility(View.INVISIBLE);
                 navMenu.setSelected(false);
                 navWishlist.setSelected(true);
+                navUser.setSelected(false);
+            }
+        });
+        navUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.productListing).setVisibility(View.INVISIBLE);
+                findViewById(R.id.wishlist).setVisibility(View.INVISIBLE);
+                findViewById(R.id.userList).setVisibility(View.VISIBLE);
+                navMenu.setSelected(false);
+                navWishlist.setSelected(false);
+                navUser.setSelected(true);
             }
         });
 

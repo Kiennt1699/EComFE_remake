@@ -45,6 +45,7 @@ public class MainActivity extends NavigationRoot {
     CategoryAdapter categoryAdapter;
     ArrayList<Category> categoryList = new ArrayList<>();
     ProgressBar progressBarCategory;
+    UserSettingsActivity userSettingsActivity;
 
     Wishlist wishlist;
     @Override
@@ -55,7 +56,9 @@ public class MainActivity extends NavigationRoot {
         saleView = findViewById(R.id.saleView);
         saleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        wishlist = new Wishlist(findViewById(R.id.productList),this);
+        wishlist = new Wishlist(findViewById(R.id.productList), this);
+        userSettingsActivity = new UserSettingsActivity(this);
+
 
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);

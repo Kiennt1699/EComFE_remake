@@ -2,7 +2,7 @@ package com.example.myapplication.Activity;
 
 import android.os.Bundle;
 
-import android.util.Log;
+
 import android.widget.Button;
 
 import android.widget.ImageView;
@@ -18,12 +18,13 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import API.OrderApi;
 import Adapter.CartAdapter; // Giả sử bạn đã tạo CartAdapter
 import API.CartApi; // Import CartApi
 import API.RetrofitClient; // Import RetrofitClient
-import Domain.AddToCartRequest;
+
 import Domain.CartItem; // Giả sử bạn đã định nghĩa CartItem
-import Domain.Products;
+import Domain.CheckoutRequest;
 import Domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,12 +38,12 @@ public class CartActivity extends AppCompatActivity {
     ArrayList<CartItem> cartItemList = new ArrayList<>(); // Danh sách item giỏ hàng
     TextView totalPriceTextView;
     double totalPrice ;
-    Button deleteButton;
+    Button deleteButton,checkoutButton ;
     ImageView backBtn;
     Retrofit retrofit = RetrofitClient.getClient();
     CartApi cartApi = retrofit.create(CartApi.class);
     Call<List<CartItem>> call = cartApi.getCartItems(User.getCurrentUser().getUserId());
-
+    OrderApi orderApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +58,14 @@ public class CartActivity extends AppCompatActivity {
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         // Fetch data from the API
         deleteButton = findViewById(R.id.deleteButton);
+        checkoutButton = findViewById(R.id.checkoutButton);
         backBtn = findViewById(R.id.backBtn);
         // Pass the token to Retrofit
         fetchCartData();
         deleteButton.setOnClickListener(v -> deleteSelectedItems());
         backBtn.setOnClickListener(v -> finish());
-
+        orderApi = retrofit.create(OrderApi.class);
+        checkoutButton.setOnClickListener(v -> performCheckout());
     }
     private void deleteCartItem(String productId) {
         Retrofit retrofit = RetrofitClient.getClient();
@@ -126,6 +129,32 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<CartItem>> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void performCheckout() {
+        // Lấy thông tin người dùng và thông tin giao hàng
+        String userId = User.getCurrentUser().getUserId(); ; // Thay thế bằng userId thực tế
+        String address = User.getCurrentUser().getAddress(); // Thay thế bằng địa chỉ thực tế
+        int paymentMethod = 0; // Thay thế bằng phương thức thanh toán thực tế
+
+        // Tạo đối tượng CheckoutRequest
+        CheckoutRequest checkoutRequest = new CheckoutRequest(address, paymentMethod);
+
+        // Gọi API
+        orderApi.checkout(userId, checkoutRequest).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Chuyển đến màn hình xác nhận đơn hàng
+                } else {
+                    Toast.makeText(CartActivity.this, "Checkout failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Checkout failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.example.myapplication.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,7 +57,6 @@ public class MainActivity extends NavigationRoot {
 
         wishlist = new Wishlist(findViewById(R.id.productList), this);
         userSettingsActivity = new UserSettingsActivity(this);
-
 
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);

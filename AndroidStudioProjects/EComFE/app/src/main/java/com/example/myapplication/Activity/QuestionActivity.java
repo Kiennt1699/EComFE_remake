@@ -52,6 +52,7 @@ public class QuestionActivity  {
         GroupObject ChatGroup = new GroupObject(7, "Chat with staff");
         ChatGroup.setOnclickListener(() -> {
             Intent intent = new Intent(context, ChatActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             context.startActivity(intent);
         });
 

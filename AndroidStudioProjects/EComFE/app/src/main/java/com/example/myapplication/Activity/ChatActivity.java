@@ -1,10 +1,12 @@
 package com.example.myapplication.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import API.ChatSocketManager;
 import Adapter.ChatAdapter;
 import Domain.ChatMessage;
 import Domain.User;
+import LayoutObject.ChatNotification;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -38,7 +41,11 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
-        findViewById(R.id.backBtn).setOnClickListener(v -> finish());
+        findViewById(R.id.backBtn).setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
         RecyclerView messagesView = (RecyclerView)findViewById(R.id.recyclerViewMessages);
         messagesView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new ChatAdapter(messages,User.getCurrentUser().getUserId());
@@ -46,7 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         Log.d("DEBUG",User.getCurrentUser().getUserId());
         sendButton = findViewById(R.id.sendButton);
         input = findViewById(R.id.editTextMessage);
-
+        ((TextView)findViewById(R.id.backbar_title)).setText("Chat room");
         AppCompatActivity context = this;
         chatSocketManager = new ChatSocketManager();
         chatSocketManager.connectWebSocket(
@@ -54,8 +61,9 @@ public class ChatActivity extends AppCompatActivity {
                 new WebSocketListener() {
                     @Override
                     public void onMessage(WebSocket webSocket, String text) {
+                        messages.add(new ChatMessage(text, true));
                         runOnUiThread(() -> {
-                            messages.add(new ChatMessage(text, true));
+                            ChatNotification.showNotification(context,"Staff", text);
                             adapter.notifyItemInserted(messages.size() -1);
                         });
                     }
@@ -81,5 +89,11 @@ public class ChatActivity extends AppCompatActivity {
         chatSocketManager.sendMessage(text);
         messages.add(new ChatMessage(text,false));
         adapter.notifyItemInserted(messages.size() -1);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        adapter.notifyDataSetChanged();
     }
 }

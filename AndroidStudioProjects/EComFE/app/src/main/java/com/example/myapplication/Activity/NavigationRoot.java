@@ -86,6 +86,7 @@ public class NavigationRoot extends AppCompatActivity {
         findViewById(R.id.logoutBtn).setOnClickListener(v -> logoutClick());
         TextView username = findViewById(R.id.username);
         username.setText(User.getCurrentUser().getName());
+
     }
 
     private void logoutClick() {

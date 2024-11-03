@@ -86,7 +86,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         } else {
             holder.groupIcon.setImageResource(R.drawable.faq2); // Fallback icon
         }
-
+        convertView.setOnClickListener(v -> group.getOnclickListener().run());
         return convertView;
     }
 
@@ -105,7 +105,6 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
         ItemObject child = (ItemObject) getChild(groupPosition, childPosition);
         holder.childTitleTextView.setText(child.getName());
-
         return convertView;
     }
 

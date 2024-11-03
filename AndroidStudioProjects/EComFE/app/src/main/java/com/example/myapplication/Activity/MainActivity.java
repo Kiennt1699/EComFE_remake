@@ -46,7 +46,7 @@ public class MainActivity extends NavigationRoot {
     ArrayList<Category> categoryList = new ArrayList<>();
     ProgressBar progressBarCategory;
     UserSettingsActivity userSettingsActivity;
-
+    QuestionActivity questionActivity;
     Wishlist wishlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends NavigationRoot {
 
         wishlist = new Wishlist(findViewById(R.id.productList), this);
         userSettingsActivity = new UserSettingsActivity(this);
-
+        questionActivity = new QuestionActivity(this);
 
         // Initialize the adapter with an empty list
         saleAdapter = new SaleAdapter(productList, this::onProductClick);

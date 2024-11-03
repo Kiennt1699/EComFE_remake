@@ -15,6 +15,7 @@
         <include android:id="@+id/wishlist" layout="@layout/activity_wishlist_page" android:visibility="invisible"/>
         <include android:id="@+id/productListing" layout="@layout/activity_main_page" android:visibility="visible"/>
         <include android:id="@+id/userList" layout="@layout/activity_user_page" android:visibility="invisible"/>
+        <include android:id="@+id/questionList" layout="@layout/activity_question_page" android:visibility="invisible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include android:id="@+id/navBar" layout="@layout/navbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

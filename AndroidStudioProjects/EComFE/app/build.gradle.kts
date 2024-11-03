@@ -89,5 +89,5 @@ dependencies {
     annotationProcessor (libs.compiler)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-
+    implementation(libs.okhttp)
 }

@@ -16,14 +16,14 @@ import java.util.List;
 import Domain.GroupObject;
 import Domain.ItemObject;
 
-public class UserPageAdapter extends BaseExpandableListAdapter {
+public class QuestionAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<GroupObject> listGroup;
     private HashMap<GroupObject, List<ItemObject>> listItem;
-    private int[] groupIcons = {R.drawable.menu_nav, R.drawable.love_nav, R.drawable.shopping_cart2, R.drawable.account_nav, R.drawable.history, R.drawable.key};
+    private int[] groupIcons = {R.drawable.map};
 
-    public UserPageAdapter(Context context, List<GroupObject> listGroup, HashMap<GroupObject, List<ItemObject>> listItem) {
+    public QuestionAdapter (Context context, List<GroupObject> listGroup, HashMap<GroupObject, List<ItemObject>> listItem) {
         this.context = context;
         this.listGroup = listGroup;
         this.listItem = listItem;
@@ -84,8 +84,9 @@ public class UserPageAdapter extends BaseExpandableListAdapter {
         if (groupPosition < groupIcons.length) {
             holder.groupIcon.setImageResource(groupIcons[groupPosition]);
         } else {
-            holder.groupIcon.setImageResource(R.drawable.user); // Fallback icon
+            holder.groupIcon.setImageResource(R.drawable.faq2); // Fallback icon
         }
+        convertView.setOnClickListener(v -> group.getOnclickListener().run());
         return convertView;
     }
 
@@ -104,7 +105,6 @@ public class UserPageAdapter extends BaseExpandableListAdapter {
 
         ItemObject child = (ItemObject) getChild(groupPosition, childPosition);
         holder.childTitleTextView.setText(child.getName());
-
         return convertView;
     }
 

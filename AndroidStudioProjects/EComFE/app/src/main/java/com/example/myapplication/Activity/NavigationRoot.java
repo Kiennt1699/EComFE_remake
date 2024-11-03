@@ -27,6 +27,7 @@ public class NavigationRoot extends AppCompatActivity {
         ImageView navMenu = findViewById(R.id.navMenu);
         ImageView navWishlist = findViewById(R.id.navWishlist);
         ImageView navUser =findViewById(R.id.navProfile);
+        ImageView navQuestion = findViewById(R.id.navSupport);
         navMenu.setSelected(true);
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,9 +36,11 @@ public class NavigationRoot extends AppCompatActivity {
                 findViewById(R.id.productListing).setVisibility(View.VISIBLE);
                 findViewById(R.id.wishlist).setVisibility(View.INVISIBLE);
                 findViewById(R.id.userList).setVisibility(View.INVISIBLE);
+                findViewById(R.id.questionList).setVisibility(View.INVISIBLE);
                 navMenu.setSelected(true);
                 navWishlist.setSelected(false);
                 navUser.setSelected(false);
+                navQuestion.setSelected(false);
             }
         });
         navWishlist.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +49,11 @@ public class NavigationRoot extends AppCompatActivity {
                 findViewById(R.id.productListing).setVisibility(View.INVISIBLE);
                 findViewById(R.id.wishlist).setVisibility(View.VISIBLE);
                 findViewById(R.id.userList).setVisibility(View.INVISIBLE);
+                findViewById(R.id.questionList).setVisibility(View.INVISIBLE);
                 navMenu.setSelected(false);
                 navWishlist.setSelected(true);
                 navUser.setSelected(false);
+                navQuestion.setSelected(false);
             }
         });
         navUser.setOnClickListener(new View.OnClickListener() {
@@ -57,15 +62,31 @@ public class NavigationRoot extends AppCompatActivity {
                 findViewById(R.id.productListing).setVisibility(View.INVISIBLE);
                 findViewById(R.id.wishlist).setVisibility(View.INVISIBLE);
                 findViewById(R.id.userList).setVisibility(View.VISIBLE);
+                findViewById(R.id.questionList).setVisibility(View.INVISIBLE);
                 navMenu.setSelected(false);
                 navWishlist.setSelected(false);
                 navUser.setSelected(true);
+                navQuestion.setSelected(false);
+            }
+        });
+        navQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.productListing).setVisibility(View.INVISIBLE);
+                findViewById(R.id.wishlist).setVisibility(View.INVISIBLE);
+                findViewById(R.id.userList).setVisibility(View.INVISIBLE);
+                findViewById(R.id.questionList).setVisibility(View.VISIBLE);
+                navMenu.setSelected(false);
+                navWishlist.setSelected(false);
+                navUser.setSelected(false);
+                navQuestion.setSelected(true);
             }
         });
 
         findViewById(R.id.logoutBtn).setOnClickListener(v -> logoutClick());
         TextView username = findViewById(R.id.username);
         username.setText(User.getCurrentUser().getName());
+
     }
 
     private void logoutClick() {

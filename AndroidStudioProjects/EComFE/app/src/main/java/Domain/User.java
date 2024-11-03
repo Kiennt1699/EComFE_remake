@@ -68,6 +68,8 @@ public class User {
 
     private static User currentUser;
     public static User getCurrentUser(){
+        if(currentUser == null)
+            return new User("User", "","","","");
         return currentUser;
     }
 

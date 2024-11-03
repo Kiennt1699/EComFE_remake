@@ -3,6 +3,17 @@ package Domain;
 public class GroupObject {
     private  int id;
     private String name;
+    private Runnable onclickListener;
+
+    public Runnable getOnclickListener() {
+        if(onclickListener == null)
+            return () -> {};
+        return onclickListener;
+    }
+
+    public void setOnclickListener(Runnable onclickListener) {
+        this.onclickListener = onclickListener;
+    }
 
     public int getId() {
         return id;
@@ -24,4 +35,6 @@ public class GroupObject {
         this.id = id;
         this.name = name;
     }
+
+
 }

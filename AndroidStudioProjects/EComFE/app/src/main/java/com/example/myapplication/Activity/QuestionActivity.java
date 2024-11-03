@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,13 +49,19 @@ public class QuestionActivity  {
         GroupObject question2Group = new GroupObject(4, "Can I refund the item?");
         GroupObject question3Group = new GroupObject(5, "How can I pay?");
         GroupObject warrantyGroup = new GroupObject(6, "What is the warranty policy for your products?");
+        GroupObject ChatGroup = new GroupObject(7, "Chat with staff");
+        ChatGroup.setOnclickListener(() -> {
+            Intent intent = new Intent(context, ChatActivity.class);
+            context.startActivity(intent);
+        });
 
         // Thêm các group vào danh sách
         listGroup.add(mapGroup);
         listGroup.add(question1Group);
         listGroup.add(question2Group);
         listGroup.add(question3Group);
-        listGroup.add(warrantyGroup); // Thêm nhóm mới
+        listGroup.add(warrantyGroup);
+        listGroup.add(ChatGroup);
 
         // Tạo danh sách ItemObject cho từng group
         List<ItemObject> mapItems = new ArrayList<>();

@@ -47,30 +47,26 @@ public class UserSettingsActivity  {
         GroupObject cartGroup = new GroupObject(3, "Your Cart");
         GroupObject userGroup = new GroupObject(4, "User Profile");
         GroupObject historyGroup = new GroupObject(5, "History Cart");
+        GroupObject passwordGroup = new GroupObject(6,"Change Password");
 
-        // In ra log để kiểm tra
-        Log.d("UserSettingsActivity", "Adding group: " + homeGroup.getName());
+
         listGroup.add(homeGroup);
-        Log.d("UserSettingsActivity", "Group added: " + homeGroup.getName());
-
         listGroup.add(wishGroup);
-        Log.d("UserSettingsActivity", "Group added: " + wishGroup.getName());
-
         listGroup.add(cartGroup);
         listGroup.add(userGroup);
         listGroup.add(historyGroup);
+        listGroup.add(passwordGroup);
 
 
 
 
 
-        // Các mục con cho các nhóm khác
-        listItem.put(homeGroup, new ArrayList<>()); // Không có mục cho wishlist
-        listItem.put(wishGroup, new ArrayList<>()); // Không có mục cho wishlist
-        listItem.put(cartGroup, new ArrayList<>()); // Không có mục cho cart
+        listItem.put(homeGroup, new ArrayList<>());
+        listItem.put(wishGroup, new ArrayList<>());
+        listItem.put(cartGroup, new ArrayList<>()); // Không có
         listItem.put(userGroup, new ArrayList<>()); // Không có mục cho user profile
         listItem.put(historyGroup, new ArrayList<>()); // Không có mục cho history cart
-
+        listItem.put(passwordGroup, new ArrayList<>());
         for (GroupObject group : listGroup) {
             List<ItemObject> items = listItem.get(group);
         }

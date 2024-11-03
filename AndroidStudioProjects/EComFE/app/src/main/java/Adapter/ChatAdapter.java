@@ -13,7 +13,7 @@ import java.util.List;
 
 import Domain.ChatMessage;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class    ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_USER = 1;
     private static final int VIEW_TYPE_ADMIN = 2;
     private List<ChatMessage> chatMessages;

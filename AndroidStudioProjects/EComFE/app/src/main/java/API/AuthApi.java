@@ -14,4 +14,7 @@ public interface AuthApi {
 
     @POST("api/Auth/register")
     Call<User> signup(@Body User user);
+
+    @POST("api/Auth/update")
+    Call<User> update(@Body User user);
 }

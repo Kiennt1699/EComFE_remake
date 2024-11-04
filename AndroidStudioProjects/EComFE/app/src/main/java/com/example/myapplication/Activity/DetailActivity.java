@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +35,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView priceTxt;
     private TextView detailTxt;
     private RatingBar ratingBar;
+    private TextView numTxt;
+    private int quantity = 1;
+    private Products selectedProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +50,32 @@ public class DetailActivity extends AppCompatActivity {
         priceTxt = findViewById(R.id.priceTxt);
         detailTxt = findViewById(R.id.detailTxt);
         ratingBar = findViewById(R.id.ratingBar);
+        numTxt = findViewById(R.id.numTxt);
         ImageView backBtn = findViewById(R.id.backBtn);
         ImageView loveBtn = findViewById(R.id.loveBtn);
         Button addBtn = findViewById(R.id.addBtn);
+        TextView plusBtn = findViewById(R.id.plusBtn);
+        TextView minusBtn = findViewById(R.id.minusBtn);
+
         List<CartItem> cartItems = new ArrayList<>();
-        CartAdapter adapter = new CartAdapter(this,cartItems);
+        CartAdapter adapter = new CartAdapter(this, cartItems);
 
         // Fetch product details from the intent
-        Products selectedProduct = getIntent().getParcelableExtra("product"); // Use Parcelable
+        selectedProduct = getIntent().getParcelableExtra("product");
+
         if (selectedProduct != null) {
             displayProductDetails(selectedProduct);
             loveBtn.setActivated(selectedProduct.isWishlisted());
         } else {
-            // Handle the case where product is not found (optional)
+            Toast.makeText(this, "Product not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
 
         // Set up OnBackPressedCallback
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Handle the back button press here
                 finish(); // Close the DetailActivity
             }
         };
@@ -75,8 +83,9 @@ public class DetailActivity extends AppCompatActivity {
 
         // Set up back button click listener
         backBtn.setOnClickListener(v -> finish()); // Close the DetailActivity
+
         loveBtn.setOnClickListener(v -> {
-            if (v.isActivated() == false){
+            if (!v.isActivated()) {
                 LoveButton.addToWishlist(this, User.getCurrentUser().getUserId(), selectedProduct.getProductId());
                 v.setActivated(true);
             } else {
@@ -84,18 +93,42 @@ public class DetailActivity extends AppCompatActivity {
                 v.setActivated(false);
             }
         });
-        addBtn.setOnClickListener(v -> {
-            EditText quantityEditText = findViewById(R.id.numTxt);
-            String quantityString = quantityEditText.getText().toString();
-            if (!quantityString.isEmpty()) {
-                // Gọi phương thức addToCart từ CartAdapter
-                Log.d("11111", "onCreate: "+ selectedProduct.toString() );
-                Log.d("22222", "onCreate: "+ quantityString );
-                adapter.addToCart(selectedProduct, quantityString);
 
-            } else {
+        plusBtn.setOnClickListener(view -> {
+            quantity++;
+            updateQuantityDisplay();
+        });
+
+        // Minus button to decrease quantity, ensuring it doesn't go below 1
+        minusBtn.setOnClickListener(view -> {
+            if (quantity > 1) {
+                quantity--;
+                updateQuantityDisplay();
             }
         });
+
+        addBtn.setOnClickListener(v -> {
+            String quantityString = numTxt.getText().toString();
+            if (!quantityString.isEmpty()) {
+                Log.d("DetailActivity", "Adding product to cart: " + selectedProduct.toString());
+                Log.d("DetailActivity", "Quantity: " + quantityString);
+                adapter.addToCart(selectedProduct, quantityString);
+                Toast.makeText(this, "Product added to cart", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Quantity cannot be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateQuantityDisplay() {
+        numTxt.setText(String.valueOf(quantity));
+        updateTotalPrice();
+    }
+
+    private void updateTotalPrice() {
+        double totalPrice = quantity * selectedProduct.getPrice();
+        TextView totalTxt = findViewById(R.id.totalTxt);
+        totalTxt.setText(String.format("$%.2f", totalPrice));
     }
 
     private void displayProductDetails(Products product) {

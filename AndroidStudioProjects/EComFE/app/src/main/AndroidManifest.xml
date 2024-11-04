@@ -99,7 +99,7 @@
             android:name=".Activity.ChatActivity"
             android:exported="true" />
 
-
+        <activity android:name=".Activity.UserProfileActivity" android:exported="true" />
       
         <activity android:name=".Activity.UpdatePasswordActivity" android:exported="true" />
     </application>

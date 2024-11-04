@@ -73,6 +73,7 @@ public class ChatActivity extends AppCompatActivity {
                         Looper.prepare();
                         Toast.makeText(context, "Connection failed. Please retry later", Toast.LENGTH_SHORT)
                                 .show();
+                        finish();
                     }
                 }
         );

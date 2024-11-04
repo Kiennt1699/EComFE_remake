@@ -65,8 +65,10 @@
                 Intent intent = new Intent(context, PurchasedActivity.class);
                 context.startActivity(intent);
             });
-
-
+            userGroup.setOnclickListener(() -> {
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                context.startActivity(intent);
+            });
             listGroup.add(homeGroup);
             listGroup.add(wishGroup);
             listGroup.add(cartGroup);

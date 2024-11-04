@@ -47,6 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // Set up button click listener
         updateProfileBtn.setOnClickListener(v -> updateProfile());
+     
     }
 
     private void loadUserProfile() {

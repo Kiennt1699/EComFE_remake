@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,8 +106,22 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
         ItemObject child = (ItemObject) getChild(groupPosition, childPosition);
         holder.childTitleTextView.setText(child.getName());
+
+        // Xử lý sự kiện khi nhấn vào địa chỉ
+        convertView.setOnClickListener(v -> {
+            if (child.getName().equals("R639+HM2, Khu đô thị mới, Quy Nhơn, Bình Định 55117")) {
+                // Tạo intent để mở Google Maps với địa chỉ cụ thể
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+                mapIntent.setData(android.net.Uri.parse("geo:0,0?q=R639+HM2, Khu đô thị mới, Quy Nhơn, Bình Định 55117"));
+                if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(mapIntent);
+                }
+            }
+        });
+
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

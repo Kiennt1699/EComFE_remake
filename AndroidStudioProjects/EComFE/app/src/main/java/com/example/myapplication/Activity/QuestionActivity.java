@@ -1,5 +1,7 @@
 package com.example.myapplication.Activity;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +55,12 @@ public class QuestionActivity  {
         ChatGroup.setOnclickListener(() -> {
             Intent intent = new Intent(context, ChatActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            context.startActivity(intent);
+        });
+
+        mapGroup.setOnclickListener(() -> {
+            Intent intent = new Intent(context, MapsActivity.class);
+            intent.putExtra("location", "13°48'21.5\"N 109°13'01.9\"E");
             context.startActivity(intent);
         });
 

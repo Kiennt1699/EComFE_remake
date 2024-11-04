@@ -3,6 +3,7 @@ package com.example.myapplication.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -51,6 +52,10 @@ public class PurchasedActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageButton orderHistoryBackButton = findViewById(R.id.orderHistoryBackButton);
+        orderHistoryBackButton.setOnClickListener(v -> finish());
+
         fetchOrders();
         recyclerView = findViewById(R.id.purchaseProductView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

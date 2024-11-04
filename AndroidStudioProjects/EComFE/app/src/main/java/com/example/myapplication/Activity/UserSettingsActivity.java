@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -44,8 +45,10 @@ public class UserSettingsActivity {
         GroupObject wishGroup = new GroupObject(2, "WishList");
         GroupObject cartGroup = new GroupObject(3, "Your Cart");
         GroupObject userGroup = new GroupObject(4, "User Profile");
-        GroupObject historyGroup = new GroupObject(5, "History Cart");
+        GroupObject historyGroup = new GroupObject(5, "History");
         GroupObject passwordGroup = new GroupObject(6, "Change Password");
+
+
 
         listGroup.add(homeGroup);
         listGroup.add(wishGroup);

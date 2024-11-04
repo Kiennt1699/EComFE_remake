@@ -3,6 +3,7 @@ package com.example.myapplication.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,6 +41,10 @@ public class PaymentActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageButton paymentBack = findViewById(R.id.paymentBackButton);
+        paymentBack.setOnClickListener(v -> finish());
+
 
         LinearLayout myLinearLayout = findViewById(R.id.creditCard);
         myLinearLayout.setOnClickListener(new View.OnClickListener() {

@@ -16,7 +16,7 @@
         >
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/paymentBackButton"
             android:layout_width="112dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"

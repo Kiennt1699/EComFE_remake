@@ -12,16 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="74dp"
         android:background="@drawable/bottom_border_red"
-        android:padding="16dp">
+        android:padding="10dp">
 
 
         <ImageButton
-            android:id="@+id/button"
+            android:id="@+id/orderHistoryBackButton"
             android:layout_width="69dp"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
             android:background="@drawable/blank_background"
-            android:src="@drawable/img"
+            android:src="@drawable/arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,14 +29,14 @@
             android:id="@+id/textView2"
             android:layout_width="163dp"
             android:layout_height="36dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="68dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Order History"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.666" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

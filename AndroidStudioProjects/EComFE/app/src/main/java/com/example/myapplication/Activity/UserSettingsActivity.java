@@ -51,12 +51,21 @@
             GroupObject userGroup = new GroupObject(4, "User Profile");
             GroupObject historyGroup = new GroupObject(5, "History Cart");
             GroupObject passwordGroup = new GroupObject(6,"Change Password");
-
+            homeGroup.setOnclickListener(() -> context.findViewById(R.id.navMenu).callOnClick());
+            wishGroup.setOnclickListener(() -> context.findViewById(R.id.navWishlist).callOnClick());
             passwordGroup.setOnclickListener(() -> {
                 Intent intent = new Intent(context, UpdatePasswordActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 context.startActivity(intent);
             });
+            cartGroup.setOnclickListener(() -> {
+                Intent intent = new Intent(context, CartActivity.class);
+                context.startActivity(intent);
+            });
+            historyGroup.setOnclickListener(() -> {
+                Intent intent = new Intent(context, PurchasedActivity.class);
+                context.startActivity(intent);
+            });
+
 
             listGroup.add(homeGroup);
             listGroup.add(wishGroup);

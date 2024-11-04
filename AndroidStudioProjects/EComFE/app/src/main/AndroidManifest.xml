@@ -86,12 +86,8 @@
         <activity
             android:name=".Activity.CartActivity"
             android:exported="true" /> <!-- Other activities in your app -->
-        <activity
-            android:name=".Activity.SignupActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.DetailActivity"
-            android:exported="false" />
+
+
        
         <activity
             android:name=".Activity.CategoryActivity"
@@ -102,9 +98,7 @@
         <activity
             android:name=".Activity.ChatActivity"
             android:exported="true" />
-        <activity
-            android:name=".Activity.ProductListingActivity"
-            android:exported="true" />
+
 
       
         <activity android:name=".Activity.UpdatePasswordActivity" android:exported="true" />

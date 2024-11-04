@@ -89,7 +89,8 @@ public class UserPageAdapter extends BaseExpandableListAdapter {
         } else {
             holder.groupIcon.setImageResource(R.drawable.user); // Fallback icon
         }
-        convertView.setOnClickListener(v -> group.getOnclickListener().run());
+        if (group.getOnclickListener() != null)
+            convertView.setOnClickListener(v -> group.getOnclickListener().run());
         return convertView;
     }
 

@@ -30,7 +30,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        currentPasswordEdit = findViewById(R.id.currentPasswordEdit);
+//        currentPasswordEdit = findViewById(R.id.currentPasswordEdit);
         newPasswordEdit = findViewById(R.id.newPasswordEdit);
         confirmNewPasswordEdit = findViewById(R.id.confirmNewPasswordEdit);
         confirmUpdatePasswordBtn = findViewById(R.id.confirmUpdatePasswordBtn);

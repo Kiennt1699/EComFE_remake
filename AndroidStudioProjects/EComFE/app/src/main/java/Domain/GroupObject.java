@@ -6,8 +6,7 @@ public class GroupObject {
     private Runnable onclickListener;
 
     public Runnable getOnclickListener() {
-        if(onclickListener == null)
-            return () -> {};
+
         return onclickListener;
     }
 

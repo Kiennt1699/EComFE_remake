@@ -1,6 +1,7 @@
 package LayoutObject;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,11 +35,17 @@ public class ProductList {
     private final ArrayList<ProductCard> items;
     private final AppCompatActivity context;
     private final ProductApi endpoint;
+    private String categoryid;
 
     private ActivityResultLauncher<Intent> launcher;
 
     public ProductList(RecyclerView view, AppCompatActivity context) {
+        this(view, context, null);
+    }
+
+    public ProductList(RecyclerView view, AppCompatActivity context, String categoryid) {
         bindedView = view;
+        this.categoryid = categoryid;
         bindedView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         items = new ArrayList<>();
         ProductlistAdapter.OnClickListener listener = new ProductlistAdapter.OnClickListener() {
@@ -78,7 +85,7 @@ public class ProductList {
     }
 
     public void fetchProductlistData(){
-        Call<List<Products>> call = endpoint.getProducts(User.getCurrentUser().getUserId());
+        Call<List<Products>> call = endpoint.getProducts(User.getCurrentUser().getUserId(), categoryid);
         call.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {

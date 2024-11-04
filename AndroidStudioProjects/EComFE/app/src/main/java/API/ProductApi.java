@@ -11,5 +11,5 @@ import java.util.List;
 public interface ProductApi {
 
     @GET("api/products") // Assuming your C# API endpoint is /api/products
-    Call<List<Products>> getProducts(@Query("userId")String userId);  // This will return a list of Product objects
+    Call<List<Products>> getProducts(@Query("userId")String userId,@Query("categoryIds")String category);  // This will return a list of Product objects
 }

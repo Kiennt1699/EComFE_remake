@@ -86,7 +86,7 @@ public class MainActivity extends NavigationRoot {
         Retrofit retrofit = RetrofitClient.getClient();
         ProductApi productApi = retrofit.create(ProductApi.class);
 
-        Call<List<Products>> call = productApi.getProducts(User.getCurrentUser().getUserId());
+        Call<List<Products>> call = productApi.getProducts(User.getCurrentUser().getUserId(), null);
         call.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {

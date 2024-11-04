@@ -92,9 +92,7 @@
         <activity
             android:name=".Activity.DetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.CategoryActivity"
-            android:exported="true" /> <!-- Other activities in your app -->
+       
         <activity
             android:name=".Activity.CategoryActivity"
             android:exported="true" />
@@ -107,6 +105,9 @@
         <activity
             android:name=".Activity.ProductListingActivity"
             android:exported="true" />
+
+      
+        <activity android:name=".Activity.UpdatePasswordActivity" android:exported="true" />
     </application>
 
 </manifest>

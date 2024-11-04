@@ -1,5 +1,6 @@
 package com.example.myapplication.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -134,29 +135,8 @@ public class CartActivity extends AppCompatActivity {
     }
     private void performCheckout() {
         // Lấy thông tin người dùng và thông tin giao hàng
-        String userId = User.getCurrentUser().getUserId(); ; // Thay thế bằng userId thực tế
-        String address = User.getCurrentUser().getAddress(); // Thay thế bằng địa chỉ thực tế
-        int paymentMethod = 0; // Thay thế bằng phương thức thanh toán thực tế
-
-        // Tạo đối tượng CheckoutRequest
-        CheckoutRequest checkoutRequest = new CheckoutRequest(address, paymentMethod);
-
-        // Gọi API
-        orderApi.checkout(userId, checkoutRequest).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // Chuyển đến màn hình xác nhận đơn hàng
-                } else {
-                    Toast.makeText(CartActivity.this, "Checkout failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(CartActivity.this, "Checkout failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        Intent intent = new Intent(this, PaymentActivity.class);
+        startActivity(intent);
     }
 
 }

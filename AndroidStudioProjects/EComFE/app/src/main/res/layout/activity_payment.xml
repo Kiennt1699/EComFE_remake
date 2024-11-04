@@ -45,12 +45,12 @@
         android:background="@color/background_color">
 
         <LinearLayout
+            android:id="@+id/creditCard"
             android:layout_width="match_parent"
             android:layout_height="104dp"
-            android:orientation="horizontal"
             android:layout_marginTop="3dp"
             android:background="@color/block_color"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -62,22 +62,23 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_marginLeft="30dp"
                 android:layout_width="334dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:text="Credit card"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/paypalMethod"
             android:layout_width="match_parent"
-            android:layout_marginTop="3dp"
             android:layout_height="104dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="3dp"
             android:background="@color/block_color"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -89,22 +90,23 @@
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_marginLeft="30dp"
                 android:layout_width="334dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:text="Paypal"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/bankTransfer"
             android:layout_width="match_parent"
-            android:layout_marginTop="3dp"
             android:layout_height="104dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="3dp"
             android:background="@color/block_color"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView10"
@@ -116,22 +118,23 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_marginLeft="30dp"
                 android:layout_width="334dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:text="Bank Transfer"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/codMethod"
             android:layout_width="match_parent"
-            android:layout_marginTop="3dp"
             android:layout_height="104dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="3dp"
             android:background="@color/block_color"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -143,9 +146,9 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_marginLeft="30dp"
                 android:layout_width="334dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"

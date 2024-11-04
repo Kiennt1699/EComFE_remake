@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="197dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -26,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="169dp"
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingLeft="10dp">
@@ -35,8 +35,8 @@
                 android:id="@+id/item_productName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ProductName"
                 android:layout_marginTop="13dp"
+                android:text="ProductName"
                 android:textSize="20dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,8 +44,7 @@
                 android:layout_height="73dp"
                 android:background="@drawable/bottom_border_black"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                >
+                android:paddingBottom="5dp">
 
                 <TextView
                     android:id="@+id/item_productDesc"

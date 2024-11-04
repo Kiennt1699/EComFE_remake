@@ -60,7 +60,7 @@ public class PurchasedActivity extends AppCompatActivity {
     }
 
     public void fetchOrders() {
-        Call<List<Order>> call = endpoint.getOrdersByUserId("efa70cbd-daea-48b6-a8d6-aeaf46cb5273");
+        Call<List<Order>> call = endpoint.getOrdersByUserId(User.getCurrentUser().getUserId());
         call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {

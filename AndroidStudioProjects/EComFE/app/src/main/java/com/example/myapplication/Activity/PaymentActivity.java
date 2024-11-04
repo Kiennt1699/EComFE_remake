@@ -91,6 +91,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
+                    Toast.makeText(PaymentActivity.this, "Checkout successfully !", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
